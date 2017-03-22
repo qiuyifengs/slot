@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>猜车游戏</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/FruitGame-style.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/weui.css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/layer/mobile/need/layer.css">
+      <script>
+        !function (e) {
+            function t() {
+                var t = n.clientWidth, r = "}";
+                !navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i) && t > 1024 && (t = 640, r = ";max-width:" + t + "px;margin-right:auto!important;margin-left:auto!important;}"), e.rem = t / 10, /ZTE U930_TD/.test(navigator.userAgent) && (e.rem = 1.13 * e.rem), /Android\s+4\.4\.4;\s+M351\s/.test(navigator.userAgent) && (e.rem = e.rem / 1.05), /Android\s+5\.0\.1;\s+MX4\s/.test(navigator.userAgent) && (e.rem = 1.06382 * e.rem), i.innerHTML = "html{font-size:" + e.rem + "px!important;}body{font-size:" + 12 * (t / 320) + "px" + r
+            }
+            var n = document.documentElement, i = document.createElement("style");
+            n.firstElementChild.appendChild(i), e.addEventListener("resize", function () {
+                t()
+            }, !1), e.addEventListener("pageshow", function (e) {
+                e.persisted && t()
+            }, !1), t()
+        }(window);
+    </script>
+    
+  <style>
+      body{background:#392608;}
+      .weui-btn:after{ border: 0;}
+
+      /* layer Dialog style*/
+      .layui-layer-dialog {
+          border: 8px solid rgba(0, 0, 0, 0.09)  !important;
+          border-radius: 15px !important;
+      }
+
+      .layui-layer-molv .layui-layer-title {
+          background: #EE8F1F !important;
+      }
+      .layui-layer-title {
+          border-radius: 8px 8px 0 0 !important;
+      }
+      .layui-layer-btn {
+          border-radius: 0 0 8px 8px !important;
+          padding: 0px 10px 12px !important;
+      }
+      .layui-layer-molv .layui-layer-btn a {
+          background: #EE8F1F !important;
+          border: none !important;
+      }
+      .layui-layer-btn a {
+          padding: 0px 22px !important;
+          margin: 10px 6px !important;
+          border-radius: 5px !important;
+          height: 35px !important;
+          line-height: 35px !important;
+      }
+      .layui-layer-molv .layui-layer-btn .layui-layer-btn1 {
+          background: #EE8F1F !important;
+          color: #fff;
+      }
+
+
+       .com{
+        text-align: center;
+        margin: 0.6rem 0;
+      }
+      .com a{
+        display: block;
+        float: left;
+        position: relative;
+        padding: 0.1rem;
+        width: 50%;
+        box-sizing: border-box;
+      }
+      .com a img{width: 2.7rem; height: 2.7rem;}
+      .money-p-desc{
+        font-size: 0.4rem;
+        color: #fff;
+      }
+      
+      @media screen and (device-width: 414px) and (device-height: 736px){
+
+      }
+      /*顶部导航 style */
+      .skew{
+          position: absolute;
+      }
+      .skew img{
+          width: 85px; height: 35px;
+      }
+      .skew:hover{
+          -webkit-transition-timing-function: cubic-bezier(0.6, 4, 0.3, 0.8);
+          transition-timing-function: cubic-bezier(0.6, 4, 0.3, 0.8);
+          -webkit-animation: gelatine 0.5s 1;
+          animation: gelatine 0.5s 1;
+      }
+    </style>
+</head>
+<body>
+<!-- 游戏规则-->
+<a href='javascript:;' id="playTip" class="skew" style="position: absolute; left: 0; top: -3px;"><img src="__PUBLIC__/Home/images/SLOT/index/btn-playTip.png" style="height: 40px; margin: 10px;"></a>
+<!-- 活动中心 -->
+<a href='javascript:;' id="actionCenter" class="skew" style="position: absolute; right: 0; top: -3px;"><img src="__PUBLIC__/Home/images/SLOT/index/btn-actionCenter.png" style=" margin: 10px; height: 40px; "></a>
+<section>
+    <figure>
+        <img src="__PUBLIC__/Home/images/SLOT/index/rob-car/car-header.jpg">
+    </figure>
+</section>
+<div class="com">
+      <volist name="goods" id="vo" >
+		<if condition="$hongbao['good_id'] eq $vo['id']">
+		<a class="com{$i}" href="/Home/HongBao/open/good_id/{$vo['id']}">
+		<else />
+        <a class="com{$i}" href="javascript:yueHb({$vo['id']},{$vo['goods_price']});">
+		</if>
+        <img src="__PUBLIC__/Home/images/SLOT/index/rob-car/car-{$i}.png" alt="">
+        <p class="money-p money-p-desc">{$vo['goods_name']}</p>
+        <!--<p class="money-p-title">¥{$vo['goods_price']|round=###}</p>-->
+        </a>
+      </volist>
+  </div>
+  <include file="Public/footer"/>
+<script src="__PUBLIC__/redpacks/js/jquery-1.11.1.min.js"></script>
+<script src="__PUBLIC__/Home/js/shiyin.js"></script>
+<script src="__PUBLIC__/Home/layer/layer.js"></script>
+
+</body>
+<script>
+    $(function () {
+        //游戏说明
+        $("#playTip").click(function () {
+            var tip="<img src='__PUBLIC__/Home/images/SLOT/index/playPup-2.png' style=' width: 300px; height: 300px;'><i class='close-icon' onclick='clsoeBtn();' style='top: 0;'></i>" +
+                    "<a href='javascript:;' onclick='clsoeBtn();' class='weui-btn close-play'  style='padding: 35px; bottom: 75px;'></a>";
+            layer.open({
+                type: 1,
+                title: false,
+                closeBtn: 0,
+                shadeClose: true,
+                skin: 'yourclass',
+                content:tip
+            });
+        });
+
+        //活动中心
+        $("#actionCenter").click(function () {
+            var tip="<img src='__PUBLIC__/Home/images/SLOT/index/playPup-3.png' style='width: 350px; height: 465px;'><i class='close-icon' onclick='clsoeBtn();' style='padding: 70px; top: 0;'></i>" +
+                    "<a href='javascript:;' onclick='clsoeBtn();' class='weui-btn close-play' style=' bottom: 150px;padding: 80px 170px;'></a>";
+            layer.open({
+                type: 1,
+                title: false,
+                closeBtn: 0,
+                shadeClose: true,
+                skin: 'yourclass',
+                content:tip
+            });
+        });
+
+
+    })
+    function  clsoeBtn() {
+        layer.closeAll();
+    }
+/*
+	function payMethod(id) {
+		var payTip='<div class="pay"><div class="inner-box" style="border: 2px dashed #CCB78A;border-radius: 5px;padding: 20px;"><h1 class="title-h1" style=" margin-bottom: 10px;">抢车方式</h1>'
+				+'<div class="weui-flex">' +
+				'<div class="weui-flex__item" style="margin-right:5px;"><a href="javascript:createHb('+id+');" class="weui-btn weui-btn_mini weui-btn_primary" id="nowPay" style="line-height: 5;">购买车</a></div>' +
+				'<div class="weui-flex__item"><a href="javascript:yueHb('+id+');" class="weui-btn weui-btn_mini weui-btn_primary" id="nowPay" style="line-height: 5; background-color: rgba(117, 40, 20, 0.55);">用车币</a></div>' +
+				'</div></div>';
+		layer.open({
+			type: 1,
+			title: false,
+			closeBtn: 0,
+			shadeClose: true,
+			skin: 'yourclass',
+			content:payTip
+		});
+	}
+	function createHb(id){
+		$.getJSON('/Home/HongBao/createHbOrder',{'good_id':id,'user_pay_type':1},function(data){
+			if(data['ret']=='true'){
+                location.href = data.url;
+				// location.href = '/Home/WxPay/setHbOrderNumber/order_number/'+data['order_number'];
+			}else{
+				layer.msg(data['msg'],{icon:2,time:2000},
+				function(){
+					if(data['jump']=='jump'){
+						location.href = '/Home/HongBao/pay/id/8';
+					}
+				});
+			}
+		});
+	}
+*/
+    function getPay() {
+        return $("input[name='pay']:checked").val();
+    }
+	
+	//余额支付
+	function yueHb(id,money){
+		layer.confirm('您确定消耗'+money+'车币进行抢车吗？', {
+			btn: ['确定','取消'],
+			skin: 'layui-layer-molv'//按钮
+		}, function(){
+			$.getJSON('/Home/HongBao/createHbOrder',{'good_id':id,'user_pay_type':2},function(data){
+				if(data['ret']=='true'){
+					layer.msg(data['msg'],{icon:1,time:2000},
+					function(){
+						location.href = '/Home/HongBao/open/good_id/'+id;
+					});
+				}else{
+					if(data['ret']=='nomoney'){
+						layer.confirm('车币不足，是否前往充值？', {
+							btn: ['确定','取消'],
+							skin: 'layui-layer-molv'//按钮
+						}, function(){
+							location.href = '/Home/User/rechage';
+						});
+					}
+				}
+			});
+			
+		}, function(){
+		});
+	}
+	
+	function getHb(){
+		location.href = '/Home/HongBao/open/good_id/{$goods_info.id}';
+	}
+</script>
+</html>

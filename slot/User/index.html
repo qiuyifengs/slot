@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="A simple HTML5 Template">
+    <meta name="author" content="dron">
+    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/layer/mobile/need/layer.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/buttons.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/weui.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/FruitGame-style.css">
+    <style>
+        .weui-cells:before,.weui-cells:after{
+            border: 0;
+        }
+
+        /* layer Dialog style*/
+        .layui-layer-dialog {
+            border: 8px solid rgba(0, 0, 0, 0.09)  !important;
+            border-radius: 15px !important;
+        }
+        .layui-layer-title {
+            border-radius: 8px 8px 0 0 !important;
+        }
+        .layui-layer-btn {
+            border-radius: 0 0 8px 8px !important;
+            padding: 0px 10px 12px !important;
+        }
+        .layui-layer-btn a {
+            padding: 0px 22px !important;
+            margin: 10px 6px !important;
+            border-radius: 5px !important;
+            height: 35px !important;
+            line-height: 35px !important;
+        }
+        /* layer Dialog style end*/
+
+        .user-img-2{width: 60px;display: block; border-radius: 30px;box-shadow: 0 0 5px #000;
+            -webkit-transform: scale(.8);
+            -ms-transform: scale(.8);
+            transform: scale(.8);
+            -webkit-animation: avatar .3s forwards;
+            animation: avatar .3s forwards;
+        }
+
+        /*账户明细*/
+        .account-font-P{
+            color:#999;
+            font-size: 12px;
+            letter-spacing: 1px;
+            /*padding: 5px;*/
+            color: #f2f2f2;
+        }
+
+        /*提现按钮*/
+        .tiXian{
+            font-size: 15px;
+            background-color: #5C1814;
+            color: #fff;
+            border: 0;
+            margin: 5px 10px;
+        }
+        .tiXian:hover{
+            background-color: #6386cc;
+            -webkit-transition-timing-function: cubic-bezier(0.6, 4, 0.3, 0.8);
+            transition-timing-function: cubic-bezier(0.6, 4, 0.3, 0.8);
+            -webkit-animation: gelatine 0.5s 1;
+            animation: gelatine 0.5s 1;
+        }
+        /*充值*/
+        #rechage{
+            background-color: transparent;
+            font-size: 14px;
+            padding: 6px 15px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius:5px;
+            border-radius:5px;
+            color: #fff;
+            position: relative;
+            border: 1px solid;
+        }
+        #rechage:hover{
+            background-color:rgba(192, 192, 192, 0.25);
+            cursor: pointer;
+        }
+        .price-p{
+            color: #fff;
+            width: auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            word-wrap: normal;
+            word-wrap: break-word;
+            word-break: break-all;
+            text-align: center;
+        }
+
+        .touSu{
+            height: 35px;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.52);
+            line-height: 35px;
+            text-align: right;
+            margin-right: 10px;
+            z-index: 1;
+            width: 100%;
+            top:0;
+        }
+        #touSu-a{
+            color: #fff;
+            padding: 5px 10px;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            margin-right: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<section style="background-image:linear-gradient(180deg, #5C1814, #9F7875);  padding: 35px 0; position: relative;n: relative;">
+    <div class="touSu"><a href="/User/touSu.html" id="touSu-a" >投诉</a></div>
+        <div class="weui-cells" style="margin:0; background-color: transparent;">
+            <div class="weui-cell">
+                <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                    <img src="{$user_info.head_img}" class="user-img-2">
+                </div>
+                <div class="weui-cell__bd">
+                    <p style="font-size: 18px;color: #fff; padding: 5px 0;">{$user_info.nick_name}</p>
+                    <p style="font-size: 13px;color: #fff;">我的ID：{$user_info.user_id}</p>
+                </div>
+                <div class="weui-cell__ft"><a href="/User/rechage.html" id="rechage" >充值</a></div>
+            </div>
+        </div>
+    <div class="weui-flex">
+        <div class="weui-flex__item">
+            <p style="font-size: 12px; color: #fff; text-align: center; padding-top: 20px; font-weight: 500;">已兑车币</p>
+            <p style="font-size: 45px; color: #eee; white-space:pre-wrap;  word-wrap:break-word; border-right: 1px solid rgba(255, 255, 255, 0.32);text-align: center; ">{$tiMoney|default=0|sprintf='%.2f',###}</p>
+        </div>
+        <div class="weui-flex__item" style=" padding-left: 10px;">
+            <p class="price-p" style=" padding-top: 50px; font-size: 14px;">车币：{$user_info.money}</p>
+            <p class="price-p" style="font-size: 14px;">车币佣金：{$user_info.all_profit_money}</p>
+
+        </div>
+    </div>
+
+</section>
+
+<section style="padding: 5px 0;">
+    <div class="weui-flex">
+        <div class="weui-flex__item"><a href="javascript:;" id="a-recharge"  class="weui-btn tiXian weui-btn_plain-default skew">游戏提现</a></div>
+        <div class="weui-flex__item"><a href="javascript:;" id="b-recharge"  class="weui-btn tiXian weui-btn_plain-default">团队提现</a></div>
+    </div>
+</section>
+
+<section style="margin: 2px 0 50px 0;">
+    <div class="weui-cells" style="margin:0;">
+        <a class="weui-cell weui-cell_access" href="/User/myChild.html">
+            <div class="weui-cell__bd">
+                <span style="vertical-align: middle; font-size: 14px;">我的团队</span>
+                <span class="weui-badge" style="margin-left: 5px;">{$allChild}</span>
+            </div>
+            <div class="weui-cell__ft"></div>
+        </a>
+        <a class="weui-cell weui-cell_access" href="/User/tzList.html">
+            <div class="weui-cell__bd">
+                <span style="vertical-align: middle; font-size: 14px;">游戏记录</span>
+            </div>
+            <div class="weui-cell__ft"></div>
+        </a>
+        </a>
+        <a class="weui-cell weui-cell_access" href="/User/dhList.html">
+            <div class="weui-cell__bd">
+                <span style="vertical-align: middle; font-size: 14px;">提现记录</span>
+            </div>
+            <div class="weui-cell__ft"></div>
+        </a>
+        <a class="weui-cell weui-cell_access" href="/User/cmList.html">
+            <div class="weui-cell__bd">
+                <span style="vertical-align: middle; font-size: 14px;">资金明细</span>
+            </div>
+            <div class="weui-cell__ft"></div>
+        </a>
+        <a class="weui-cell weui-cell_access" href="/User/kefu.html">
+            <div class="weui-cell__bd">
+                <span style="vertical-align: middle; font-size: 14px;">客服咨询</span>
+            </div>
+            <div class="weui-cell__ft"></div>
+        </a>
+
+    </div>
+</section>
+
+<!-- 底部导航 -->
+<include file="Public/footer"/>
+
+<script src="__PUBLIC__/Home/js/jquery-3.1.1.min.js"></script>
+<script src="__PUBLIC__/Home/layer/layer.js"></script>
+<script>
+    wx.hideOptionMenu();
+    $(function () {
+
+        //立即兑换弹窗
+        $("#a-recharge").click(function () {
+            layer.prompt({title:'车币提现，收取{$tixian}%手续费'},function(val, index){
+                get_money(val,1);
+                layer.close(index);
+            });
+        });
+    })
+
+    $(function () {
+
+        //立即兑换弹窗
+        $("#b-recharge").click(function () {
+            layer.prompt({title:'车币佣金提现，免手续费'},function(val, index){
+                get_money(val,2);
+                layer.close(index);
+            });
+        });
+    })
+    //弹窗自定义--立即兑换
+    function btnRecharge2() {
+        return html='<div style="background-color: #fff; padding:10px 0;"><div class="weui-flex" style="border-bottom: 1px solid #999;">'
+                + '<div><div class="placeholder">我的筹码库：</div></div>'
+                + '<div class="weui-flex__item placeholder" style="text-align: left;"><span style="color: red;font-weight: bold; font-size: 20px;">{$user_info.money}</span></div>'
+                + '</div>'
+                + '<ul class="mainmenu">'
+                + '<li><a href="javascript:;" onclick="get_money(2);" ><p class="weui-grid__label jettion-money">¥2</p><img src="__PUBLIC__/Home/images/person-center/jetton/jetton-icon.png" class="jetton-img" /><span>2筹码</span></a></li>'
+                + '<li><a href="javascript:;" onclick="get_money(10);"><p class="weui-grid__label jettion-money">¥10</p><img src="__PUBLIC__/Home/images/person-center/jetton/jetton-icon.png" class="jetton-img" /><span>10筹码</span></a></li>'
+                + '<li><a href="javascript:;" onclick="get_money(20);"><p class="weui-grid__label jettion-money">¥20</p><img src="__PUBLIC__/Home/images/person-center/jetton/jetton-icon.png" class="jetton-img" /><span>20筹码</span></a></li>'
+                + '<li><a href="javascript:;" onclick="get_money(50);"><p class="weui-grid__label jettion-money">¥50</p><img src="__PUBLIC__/Home/images/person-center/jetton/jetton-icon.png" class="jetton-img" /><span>50筹码</span></a></li>'
+                + '<li><a href="javascript:;" onclick="get_money(100);"><p class="weui-grid__label jettion-money">¥100</p><img src="__PUBLIC__/Home/images/person-center/jetton/jetton-icon.png" class="jetton-img" /><span>100筹码</span></a></li>'
+                + '<li><a href="javascript:;" onclick="get_money(200);"><p class="weui-grid__label jettion-money">¥200</p><img src="__PUBLIC__/Home/images/person-center/jetton/jetton-icon.png" class="jetton-img" /><span>200筹码</span></a></li></ul></div>';
+    }
+
+    function recharge_money(money){
+        $.getJSON('/Home/User/createRecharge',{'money':money},function(data){
+            if(data['ret']=='true'){
+                location.href = '/Home/WxPay/setOrderNumber/order_number/'+data['order_number'];
+            }else{
+                layer.msg(data['msg']);
+            }
+        });
+    }
+
+    function get_money(money,type){
+        $.ajax({
+            url:"{:U('tiXian')}",
+            type:'post',
+            dataType:'json',
+            data:{money:money,type:type},
+            success:function(res){
+                if(res.status == 'ok'){
+                    layer.msg('操作成功',{time:2000,icon:6},function(){
+                        layer.closeAll();
+                        window.location.reload();
+                    });
+                }else{
+                    layer.msg(res.errorMsg,{time:2000,icon:7},function(){
+                        layer.closeAll();
+                        if(res.url){
+                            location.href = res.url;
+                        }
+                    });
+                }
+            }
+        })
+    }
+</script>
+
+</body>
+</html>

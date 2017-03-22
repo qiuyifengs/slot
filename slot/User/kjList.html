@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>历史开奖记录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/style.css">
+    <style>
+        body{
+            background:url(__PUBLIC__/Home/images/SLOT/index/list.png) no-repeat;
+            background-size: 100% 100%;
+            padding-top: 10px;
+            background-color: #220c0b;
+        }
+        .flex-cont{
+            /*定义为flexbox*/display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+        .flex-item{
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            width: 0%;
+        }
+        /*导航*/
+        .flex-nav{
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            height: 80px;
+            line-height: 44px;
+            /*定义子元素垂直居中*/
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            /*子元素沿主轴对齐方式均分*/
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            background-color: #000;
+            color: #fff;
+        }
+        .flex-nav .nav-title {
+            text-align: center;
+            line-height: 1.2;
+            width: 0%;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+
+        .flex-nav .nav-title p{
+            color:#aaa;
+            font-size: 12px;
+        }
+        /*列表*/
+        .flex-simple {
+            /*定义子元素垂直居中*/
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            padding: 10px 15px;
+        }
+        .betRecord-ul li{ padding: 5px; margin: 10px; border-left: 5px solid #772d25; border-radius: 5px; font-size: 15px;  box-shadow:0px 3px 3px rgba(0, 0, 0, 0.3);background:#fff;  }
+        .betRecord-ul li:last-child{ border-bottom: none;}
+        .s-tit{
+            font-size: 14px;
+            font-weight: bold;
+            color: #353535;
+        }
+        .s-tit,.s-desc {
+            line-height: 1.5;
+            font-size: 13px;
+        }
+        p.p-money{ color: #3d2b52; font-weight: 700;}
+    </style>
+</head>
+<body>
+<section>
+    <div class="content">
+        <ul class="betRecord-ul">
+            <div class="lists">
+
+                <!-- <li>
+                    <div class="flex-cont flex-simple">
+                        <div class="flex-item s-word">
+                            <p class="s-tit">订单编号：00000000008</p>
+                            <p class="s-desc">2016.12.11 14:35:12</p>
+                        </div>
+                        <p class="p-money">20元</p>
+                    </div>
+                </li> -->
+            </div>
+        </ul>
+<input type="hidden" id="page" value="1">
+    </div>
+</section>
+<script src="__PUBLIC__/Home/js/jquery-3.1.1.min.js"></script>
+<script src="__PUBLIC__/Home/js/dropload.js"></script>
+<script>
+    $(function(){
+        var counter = 0;
+        // 每页展示4个
+        var num = 4;
+        var pageStart = 0,pageEnd = 0;
+
+        // dropload
+        $('.content').dropload({
+            scrollArea : window,
+            loadDownFn : function(me){
+				//发送ajax请求
+                $.ajax({
+                    url: "{:U('')}",
+                    type: 'post',
+                    dataType: 'json',
+                    data:{page:$('#page').val()},
+                    success: function(res){
+                        if(res.list){
+                            var des_name = new Array('无',"{:light_yazhu_status(1)}","{:light_yazhu_status(2)}","{:light_yazhu_status(3)}","{:light_yazhu_status(4)}","{:light_yazhu_status(5)}","{:light_yazhu_status(6)}","{:light_yazhu_status(7)}","{:light_yazhu_status(8)}","{:light_yazhu_status(9)}","{:light_yazhu_status(10)}","{:light_yazhu_status(11)}","{:light_yazhu_status(12)}","{:light_yazhu_status(13)}","{:light_yazhu_status(14)}","{:light_yazhu_status(15)}","{:light_yazhu_status(16)}");
+							var result="";
+                            var list = res.list;
+                            var show_number = '';
+							for(var i in list){
+                                show_number = des_name[list[i].number_ge];
+                                if(list[i].number_shi){
+                                    show_number += ','+des_name[list[i].number_shi];
+                                }
+                                if(list[i].number_bai){
+                                    show_number += ','+des_name[list[i].number_bai];
+                                }
+                                if(list[i].number_qian){
+                                    show_number += ','+des_name[list[i].number_qian];
+                                }
+                                if(list[i].number_wan){
+                                    show_number += ','+des_name[list[i].number_wan];
+                                }
+								result +='<li>'
+                                +'<div class="flex-cont flex-simple"><div class="flex-item s-word">'
+                                +'<p class="s-tit">开奖豪车：'+show_number+'</p>'
+                                +'<p class="s-desc">'+list[i].open_time+'</p>'
+                                +'</div><p class="p-money">'+list[i].period_number+'期</p></div></li>';
+							}
+							// console.log(result);
+							// 测试代码，延迟1秒加载
+							setTimeout(function(){
+								$('.lists').append(result);
+								// 每次数据加载完，必须重置
+								$('#page').val(parseInt($('#page').val()) + 1);
+								me.resetload();
+							},1000);
+                        }else{
+                            // alert('无更多数据');
+                           me.lock();
+                           // 无数据
+                           me.noData();
+                           me.resetload();
+                        }
+                    },
+                    error: function(xhr, type){
+                        alert('Ajax error!');
+                        // 即使加载出错，也得重置
+                        me.resetload();
+                    }
+                });
+
+                /*$.ajax({
+                 type: 'GET',
+                 url: '',
+                 dataType: 'json',
+                 success: function(data){
+                 var result = '';
+                 counter++;
+                 pageEnd = num * counter;
+                 pageStart = pageEnd - num;
+                 for(var i = pageStart; i < pageEnd; i++){
+                 result += '<div class="show-betRecordInfo-box">'
+                 +'<h3 style="text-align: center">第21期</h3>'
+                 +'<ul class="betRecord-itemlist">'
+                 +'<li>万位:<span>5</span></li>'
+                 +'<li>千位:<span>5</span></li>'
+                 +'<li>百位:<span>5</span></li>'
+                 +'<li>十位:<span>5</span></li>'
+                 +'<li>个位:<span>5</span></li>'
+                 +'</ul>'
+                 +'<div class="btn-bet"><button class="button gray">未中奖</button></div>'
+                 +'</div>';
+                 if((i + 1) >= data.lists.length){
+                 // 锁定
+                 me.lock();
+                 // 无数据
+                 me.noData();
+                 break;
+                 }
+                 }
+
+
+
+                 // 测试代码，延迟1秒加载
+                 setTimeout(function(){
+                 $('.lists').append(result);
+                 // 每次数据加载完，必须重置
+                 me.resetload();
+                 },1000);
+                 },
+                 error: function(xhr, type){
+                 alert('Ajax error!');
+                 // 即使加载出错，也得重置
+                 me.resetload();
+                 }
+                 });*/
+            }
+        });
+    });
+</script>
+</body>
+</html>

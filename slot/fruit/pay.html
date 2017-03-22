@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>拼红包</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/weui.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/FruitGame-style.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/layer/mobile/need/layer.css">
+
+    <style>
+
+        body{ background-color: #d6ecf7;}
+        .page__bd_spacing{
+            position: absolute;
+            bottom: 50px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .title-h1{
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #CC394C;
+        }
+        .title-h2{
+            line-height: 2;
+            font-size: 14px;
+            color: #999;
+            margin-left: 35px;
+        }
+        .title-p{
+            color: #FF5500;
+            text-align: center;
+        }
+        @media screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2){
+            .page__bd_spacing{ bottom: 55px;}
+            .title-p{ margin-top: -20px;}
+
+        }
+        @media screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2){
+            .page__bd_spacing{ bottom: 55px;}
+        }
+        @media screen and (device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 2){
+            .page__bd_spacing{ bottom: 50px;}
+        }
+        @media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 2){
+            .page__bd_spacing{ bottom: 110px;}
+        }
+        .container-box{
+            background-color: #F1E3C0;
+            width: 95%;
+            margin: 0 auto;
+            border-radius: 15px;
+            padding: 5px;
+            border: 3px solid #fff;
+        }
+        .inner-box{
+            border: 2px dashed #CCB78A;
+            border-radius: 5px;
+        }
+
+        .pay {
+            border-radius: 15px;
+            padding: 5px;
+            background-color: rgba(241, 227, 192, 0.94);
+            color: rgba(0, 0, 0, 0.58);
+            font-size: 15px;
+            text-align: center;
+            border: 3px solid rgba(255, 255, 255, 0.76);
+        }
+
+    </style>
+</head>
+<body>
+<section>
+    <figure>
+        <img src="__PUBLIC__/Home/images/FruitGame/shuiGuo/shuiGuoBg.jpg">
+    </figure>
+</section>
+<section>
+    <div class="page__bd_spacing">
+        <div class="container-box">
+            <div class="inner-box">
+                <!--<h1 class="title-h1">{$goods_info.goods_desc}</h1>-->
+                <h2 class="title-h2">一、微信支付</h2>
+                <p class="title-p">¥<span style="font-size: 30px;">{$goods_info.goods_price}</span></p>
+                <div class="weui-flex">
+                    <div class="weui-flex__item">
+                        <div class="placeholder">
+                            <a href="javascript:;" id="payMethod" class="weui-btn weui-btn_primary" style="width: 60%; font-size: 14px;">立即支付</a>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="title-h2">二、支付完成后，记得去抢红包哦！</h2>
+                <div class="weui-flex" style="padding-bottom: 10px;">
+                    <div class="weui-flex__item">
+                        <div class="placeholder">
+                            <a href="javascript:;" onclick="getHb();" class="weui-btn weui-btn_warn" style="width: 60%;font-size: 14px;">现在去拼手气</a>
+                        </div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<include file="Public/footer"/>
+
+</body>
+
+<script src="__PUBLIC__/Home/js/jquery-3.1.1.min.js"></script>
+<script src="__PUBLIC__/Home/layer/layer.js"></script>
+<script>
+    $(function () {
+        $("#payMethod").click(function () {
+            var payTip='<div class="pay"><div class="inner-box" style="border: 2px dashed #CCB78A;border-radius: 5px;padding: 20px;"><h1 class="title-h1" style=" margin-bottom: 10px;">支付方式</h1>'
+                    +'<div class="weui-flex">' +
+                    '<div class="weui-flex__item"><a href="javascript:createHb({$goods_info.id});" class="weui-btn weui-btn_mini weui-btn_primary" id="nowPay" style="line-height: 5.3;">微信支付</a></div>' +
+                    '<div class="weui-flex__item"><a href="javascript:yueHb({$goods_info.id});" class="weui-btn weui-btn_mini weui-btn_primary" id="nowPay" style="line-height: 5.3; background-color: rgba(117, 40, 20, 0.55);">余额支付</a></div>' +
+                    '</div></div>';
+            layer.open({
+                type: 1,
+                title: false,
+                closeBtn: 0,
+                shadeClose: true,
+                skin: 'yourclass',
+                content:payTip
+            });
+        });
+    });
+    function getPay() {
+        return $("input[name='pay']:checked").val();
+    }
+	function createHb(id){
+		$.getJSON('/Home/HongBao/createHbOrder',{'good_id':id,'user_pay_type':1},function(data){
+			if(data['ret']=='true'){
+                location.href = data.url;
+				// location.href = '/Home/WxPay/setHbOrderNumber/order_number/'+data['order_number'];
+			}else{
+				layer.msg(data['msg'],{icon:2,time:2000},
+				function(){
+					if(data['jump']=='jump'){
+						location.href = '/Home/HongBao/pay/id/8';
+					}
+				});
+			}
+		});
+	}
+	
+	//余额支付
+	function yueHb(id){
+		layer.confirm('您确定用账户余额购买红包吗？', {
+			btn: ['确定','取消'],
+			skin: 'layui-layer-molv'//按钮
+		}, function(){
+			$.getJSON('/Home/HongBao/createHbOrder',{'good_id':id,'user_pay_type':2},function(data){
+				if(data['ret']=='true'){
+					layer.msg(data['msg'],{icon:1,time:2000},
+					function(){
+						location.href = '/Home/HongBao/open/good_id/{$goods_info.id}';
+					});
+				}else{
+					layer.msg(data['msg'],{icon:2,time:2000},
+					function(){
+						if(data['jump']=='jump'){
+							location.href = '/Home/HongBao/pay/id/8';
+						}
+					});
+				}
+			});
+			
+		}, function(){
+		});
+	}
+	
+	function getHb(){
+		location.href = '/Home/HongBao/open/good_id/{$goods_info.id}';
+	}
+</script>
+</html>

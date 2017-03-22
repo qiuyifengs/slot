@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>猜车游戏</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <script>
+        !function (e) {
+            function t() {
+                var t = n.clientWidth, r = "}";
+                !navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i) && t > 1024 && (t = 640, r = ";max-width:" + t + "px;margin-right:auto!important;margin-left:auto!important;}"), e.rem = t / 10, /ZTE U930_TD/.test(navigator.userAgent) && (e.rem = 1.13 * e.rem), /Android\s+4\.4\.4;\s+M351\s/.test(navigator.userAgent) && (e.rem = e.rem / 1.05), /Android\s+5\.0\.1;\s+MX4\s/.test(navigator.userAgent) && (e.rem = 1.06382 * e.rem), i.innerHTML = "html{font-size:" + e.rem + "px!important;}body{font-size:" + 12 * (t / 320) + "px" + r
+            }
+            var n = document.documentElement, i = document.createElement("style");
+            n.firstElementChild.appendChild(i), e.addEventListener("resize", function () {
+                t()
+            }, !1), e.addEventListener("pageshow", function (e) {
+                e.persisted && t()
+            }, !1), t()
+        }(window);
+    </script>
+   <link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+  <link rel="stylesheet" href="__PUBLIC__/Home/layer/mobile/need/layer.css">
+  <link rel="stylesheet" href="__PUBLIC__/Home/css/hbHake.css">
+  
+  <style>
+        body{background-color: #392608; margin: 0; padding: 0; font-family: "微软雅黑";}
+
+        .layui-m-layercont {
+            font-size: 25px;
+            color: rgba(244, 67, 54, 0.8);
+            font-weight: 700;
+        }
+        .hb-column {
+            position:absolute;
+            max-width: 100%;
+            top: 1.5rem;
+            left: 1rem;
+        }
+        .hb-num { padding: 0 0.5rem;  }
+        .hb-num li {
+            font-weight: 700;
+            color: #000;
+            width: 2rem;
+            height: 0.8rem;
+            line-height: 0.8rem;
+            text-align: center;
+            float: left;
+            font-size: 0.4rem;
+        }
+
+        #hb-list{
+            max-width: 100%;
+            height: 100%;
+            text-align: center;
+            padding: 0.25rem;
+        }
+        #hb-list li{  display: inline-block;}
+
+
+         .chest{
+            background: url(__PUBLIC__/Home/images/FruitGame/index/chest.png) no-repeat;
+        }
+
+       .hb-bg-icon{
+            display: block;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 5px;
+            background-size: contain;
+            -webkit-animation: open 0.2s linear 0.5s infinite alternate;
+            -webkit-animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+            animation: open 0.2s linear 0.5s infinite alternate;
+            animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .hb-font-icon{
+            display: block;
+            width: 30px;
+            height: 30px;
+            background: url(__PUBLIC__/Home/images/hongbao/pin.png) no-repeat;
+            background-size: contain;
+            top: 35px;
+            left: 21px;
+            position: absolute;
+        }
+        /*缩放效果*/
+        .hb-font-icon {
+            -webkit-animation: open 0.2s linear 0.5s infinite alternate;
+            -webkit-animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+            animation: open 0.2s linear 0.5s infinite alternate;
+            animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        @keyframes open {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(0.9);
+            }
+        }
+
+        @-webkit-keyframes open {
+            0% {
+                -webkit-transform: scale(1);
+            }
+            100% {
+                -webkit-transform: scale(0.9);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<section>
+    <img src="__PUBLIC__/Home/images/SLOT/index/rob-car/car-priceInfo.jpg" style="width: 100%; height: 7.5rem;"/>
+</section>
+
+<section class="hb-column">
+        <ul class="hb-num">
+    <volist name="showList" id="data">
+            <li>{$data}</li>
+    </volist>
+        </ul>
+</section>
+
+<section>
+    <ul id="hb-list">
+    </ul>
+</section>
+
+</body>
+
+<script src="__PUBLIC__/Home/js/jquery-3.1.1.min.js"></script>
+<script src="__PUBLIC__/Home/js/shiyin.js"></script>
+<script src="__PUBLIC__/Home/layer/mobile/layer.js"></script>
+  <script>
+  $(function(){
+
+
+      for(var i=1;i<=12;i++){
+          $("#hb-list").append("<li><i class='hb-bg-icon' style='background: url(__PUBLIC__/Home/images/SLOT/index/rob-car/car-1.png) no-repeat; background-size: 100% 100%;'></i></li>");
+      }
+
+    var i = 0;
+	var good_id = {$good_id};
+
+      $("#hb-list li").click(function () {
+          $(this).addClass('shake-chunk');
+          // 点击按钮2000毫秒后执行以下操作
+          setTimeout(function(){
+              // 在带有red样式的div中删除shake-chunk样式
+              $('.red').removeClass('shake-chunk');
+          },2000);
+
+          $.getJSON('/Home/HongBao/open',{'good_id':good_id},function(data){
+              if(data['ret']=='true'){
+                  /*$('.header_rod_tan').css('display','block')*/
+                  layer.open({
+                      content:'恭喜您抽中'+{$money}+'车币'
+                      ,btn: ['知道了']
+                      ,yes: function(index){
+                          layer.close(index);
+                          location.href = '/Home/HongBao/index';
+                      }
+                  });
+              }else{
+                  layer.msg(data['msg'],{icon:2});
+
+              }
+          });
+      });
+  });
+  </script>
+</html>

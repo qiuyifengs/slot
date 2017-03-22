@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+		<meta name="screen-orientation" content="portrait"><!-- uc强制竖屏 -->
+		<meta name="x5-orientation" content="portrait">
+		<title></title>
+		<link rel="stylesheet" href="__PUBLIC__/Home/css/weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/Home/css/common.css" />
+		<style type="text/css">
+			#photolist li{width:41%;float:left;margin-left:6%;overflow:none;}
+			#photolist li img{width:100%;}
+		</style>
+	</head>
+	<body class="body-box" style="background: #f1f1f1;">
+		<!---->
+		<!--header-->
+		<div class="header" style="background: #fff;">
+			<span>
+				<a href="javascript:history.go(-1);">
+					返回
+				</a>
+			</span>
+			<span>
+				我的资料
+			</span>
+		</div>
+		<!--list-->
+		<div class="weui_cells ">
+			<!-- <div class="weui_cell">
+			    <div class="weui_cell_bd weui_cell_primary">
+			       <p>手机号码</p>
+			    </div>
+			    <div class="weui_cell_ft">
+			     	 {$user_data['mobile_phone']}
+			    </div>
+			</div> -->
+			<div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label class="weui_label">持卡人姓名</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					{$user_auth_info['bank_user_name']}
+				</div>
+			</div>
+			<!-- <div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label class="weui_label">身份证号码</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					{$user_auth_info['sfz']}
+				</div>
+			</div> -->
+			<div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label class="weui_label">银行卡号</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					{$user_auth_info['bank_account']}
+				</div>
+			</div>
+			<div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label class="weui_label">开户银行</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					{$user_auth_info['bank_name']}
+				</div>
+			</div>
+			<!-- <div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label class="weui_label">开户支行</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					{$user_auth_info['bank_name_fen']}
+				</div>
+			</div> -->
+			<!-- <a class="weui_cell" href="javascript:void(0)" style="color: #000;">
+				<div class="weui_cell_bd weui_cell_primary">
+				  <p>证件认证</p>
+				</div>
+			</a>
+			<ul id="photolist">
+				<li><a href="{$user_auth_info['auth_photo_one']}"><img src="{$user_auth_info['auth_photo_one']}" alt="证件认证照片1 到账银行卡正面（不能是信用卡）" /></a></li>
+				<li><a href="{$user_auth_info['auth_photo_two']}"><img src="{$user_auth_info['auth_photo_two']}" alt="身份证正面照" /></a></li>
+				<li><a href="{$user_auth_info['auth_photo_three']}"><img src="{$user_auth_info['auth_photo_three']}" alt="身份证+银行卡+本人合照" /></a></li>
+				<li><a href="{$user_auth_info['auth_photo_four']}"><img src="{$user_auth_info['auth_photo_four']}" alt="身份证反面照" /></a></li>
+			</ul> -->
+
+		</div>
+		<p class="data-raw">
+			<p class="data-raw">
+				<!-- <eq name="user_auth_info.status" value="1">
+					<i class="weui_icon_success"></i>
+					<span>审核中</span>
+				<else/>
+					<i class="weui_icon_success col"></i>
+					<span>您的实名认证已通过,您可正常使用系统所有功能</span>
+				</eq> -->
+			</p>
+		</p>
+		<div style="width: 100%; height: 80px; display: block;">
+			<!--占用位置-->
+		</div>
+	<!-- 底部 -->
+	<script src="__PUBLIC__/PublicJs/jquery-1.7.2.min.js"></script>
+	<script src="__PUBLIC__/Home/js/common.js"></script>
+	<link href="__PUBLIC__/PhotoSwipe3.0.5/photoswipe.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" src="__PUBLIC__/PhotoSwipe3.0.5/lib/klass.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/PhotoSwipe3.0.5/code.photoswipe-3.0.5.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('#photolist img').each(function(){
+				var thiswidth = $(this).width();
+				$(this).css({'height':thiswidth});
+			});
+
+		});
+
+	 (function(window, $, PhotoSwipe) {
+		$(function(){
+
+				var instance = $('#photolist a').photoSwipe();
+				var size = $('#photolist a').length;
+
+				instance.addEventHandler(PhotoSwipe.EventTypes.onDisplayImage);
+
+		});
+		function detatch(){
+			PhotoSwipe.detatch(instance);
+			PhotoSwipe.activeInstances = [];
+		}
+	}(window, window.jQuery, window.Code.PhotoSwipe));
+	</script>
+	</body>
+</html>

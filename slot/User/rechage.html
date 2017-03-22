@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <title>充值</title>
+	    <link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+    <style>
+        html{
+            /*iphone6的375尺寸作为16px基准，600px正好18px大小*/
+            font-size:calc(100% + 2 * (100vw - 375px) / 225);
+        }
+        @media screen and (min-width: 600px) {
+            /*600px-1000px每100像素宽字体增加1px(18px-22px)*/
+            html{ font-size: calc(112.5% + 4 * (100vw - 600px)/400)}
+        }
+        @media screen and (min-width: 1000px) {
+            /*1000px往后是每100像素0.5px增加*/
+            html{ font-size: calc(137.5% + 4 * (100vw - 600px)/1000)}
+        }
+
+        .price-box {  padding-bottom: 10px; }
+        .content-block-inner {  padding: 15px;  }
+        ul{ list-style: none;}
+        .price-list {  margin: -5px;  position: relative;  }
+        .price-list:after {  content: '';  display: block;  clear: both;  }
+        .price-list li {  float: left;  -webkit-box-sizing: border-box;  width: 33.3%;  padding: 5px;  }
+        .price-list li.active a {
+            color: #FF5000;
+            background-color: rgba(255,80,0,.06);
+            border-color: #FF5000;
+        }
+        .price-list li a {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            position: relative;
+            height: 60px;
+            border: 1px solid #d7d7d7;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .price-list li a.price h5 {  margin-top: -5px;  }
+        .price-list li a h5 {
+            color: #333;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            font-weight: 400;
+            line-height: .74666667rem;
+            margin-top: -.4375rem;
+        }
+        .price-list li a h5, .price-list li a span {  position: absolute;  width: 100%;  top: 50%;  text-align: center;  }
+        .price-list li a.price span {  visibility: visible;  }
+        .price-list li a span {  color: #999;  font-size: 14px;  padding-top: 5px;  line-height: 1;  visibility: hidden;  }
+
+        .submit {  width: 100%;  z-index: 1;  }
+        .submit .content-block-inner {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .btn {
+            -webkit-appearance: none;
+            appearance: none;
+            border: 0;
+            display: block;
+            border-radius: 5px;
+            text-align: center;
+            -webkit-box-sizing: border-box;
+            outline: 0;
+        }
+        .btn-submit {
+            display: block;
+            width: 100%;
+            height: 40px;
+            box-shadow: 0 7px 7px 0 #ccc;
+            background-color: #ff5000;
+            color: #fff;
+            font-size: 18px;
+            border-radius: 3px;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="content-block">
+    <p style="padding-top: 10px; padding-left: 15px;">选择充值金额（元）</p>
+    <div class="content-block-inner price-box J_prices">
+        <!--面额列表-->
+        <ul class="price-list" id="price-list">
+<!--              <li class=" " data-face="20">
+                <a href="javascript:createRecharge(5);" class="price">
+                    <h5 >5元</h5>
+                </a>
+            </li> -->
+            <li class=" " data-face="20">
+                <a href="javascript:createRecharge(10);" class="price">
+                    <h5 >10元</h5>
+                </a>
+            </li>
+             <li class=" " data-face="20">
+                <a href="javascript:createRecharge(15);" class="price">
+                    <h5 >15元</h5>
+                </a>
+            </li>
+            <li class=" " data-face="20">
+                <a href="javascript:createRecharge(20);" class="price">
+                    <h5 >20元</h5>
+                </a>
+            </li>
+            <li class=" " data-face="50">
+                <a href="javascript:createRecharge(50);" class="price">
+                    <h5 >50元</h5>
+                </a>
+            </li>
+            <li class=" " data-face="100">
+                <a href="javascript:createRecharge(100);" class="price">
+                    <h5 >100元</h5>
+                </a>
+            </li>
+            <li class=" " data-face="500">
+                <a href="javascript:createRecharge(500);" class="price">
+                    <h5 >500元</h5>
+                </a>
+            </li>
+            <li class=" " data-face="1000">
+                <a href="javascript:createRecharge(1000);" class="price">
+                    <h5 >1000元</h5>
+                </a>
+            </li>
+            <li class=" " data-face="1000">
+                <a href="javascript:;" class="price" id="customPrice">
+                    <h5 style="font-size: 16px;color: #FF5000">自定义金额</h5>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<p style="padding: 12px; line-height: 24px; font-size: 14px; color: #FF5000; ">温馨提示：车币充值用于畅玩游戏，充值金额最少15元起，车币可随时兑换回货币，为防止恶意套现，根据国家金融交易管理规定需扣除1%手续费，祝您游戏愉快。</p>
+<!-- <div class="content-block submit">
+    <div class="content-block-inner">
+        <button id="J_submit" class="btn btn-submit">立即充值</button>
+    </div>
+</div> -->
+<script src="__PUBLIC__/redpacks/js/jquery-1.11.1.min.js"></script>
+<script src="__PUBLIC__/Home/layer/layer.js"></script>
+<script>
+$(function () {
+    $(".price-list li").click(function () {
+        $(this).addClass("active").siblings().removeClass("active");
+        //console.log($(this).attr("data-face"));
+    })
+    $("#J_submit").click(function () {
+        var $li = $(".price-list ").children("li.active");
+        console.log($li.attr("data-face"));
+    })
+
+    $("#customPrice").click(function () {
+        layer.prompt({title:'自定义金额'},function(val, index){
+            createRecharge(val);
+            layer.close(index);
+        });
+    })
+})
+
+	function createRecharge(money){
+		$.getJSON('/Home/User/createRecharge',{'money':money},function(data){
+			if(data['ret']=='true'){
+                location.href = data.url;
+				// location.href = '/Home/WxPay/setHbOrderNumber/order_number/'+data['order_number'];
+			}else{
+				layer.msg(data['msg'],{icon:2,time:2000},
+				function(){
+					if(data['jump']=='jump'){
+						location.href = '/Home/HongBao/pay/id/8';
+					}
+				});
+			}
+		});
+		}
+</script>
+</body>
+</html>

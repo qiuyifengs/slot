@@ -1,0 +1,584 @@
+@charset "UTF-8";
+html,body {
+    -webkit-user-select:none;
+    user-select:none
+}
+body,div,dl,dt,dd,ul,li,p,h1,h2,h3,input {
+    margin:0;
+    padding:0
+}
+body,h1,h2,h3,input,p {
+    font-family:"Helvetica Neue",Helvetica,STHeiTi,sans-serif;
+    font-size:14px;
+    color:#000
+}
+body {
+    width:100%;
+    margin:0 auto;
+    background-color:#f5f5f5;
+    overflow-X:hidden
+}
+ul,ol {
+    list-style:none
+}
+img {
+    border:0
+}
+input {
+    border-radius:0
+}
+input[type="button"],input[type="submit"],input[type="reset"],button {
+    -webkit-appearance:none;
+    border-radius:0
+}
+a,img {
+    -webkit-touch-callout:none
+}
+a,span {
+    -webkit-tap-highlight-color:transparent
+}
+.clearfix:before,.clearfix:after {
+    content:'';
+    display:table;
+    clear:both
+}
+.clearfix {
+    *zoom:1
+}
+.main-wrapper {
+    min-width:320px;
+    max-width:640px;
+    margin:0 auto
+}
+.head {
+    width:100%;
+    height:42px;
+    background-color:#fc6463
+}
+.head .logo {
+    float:left;
+    width:100px;
+    height:42px;
+    background-size:140px;
+    background-repeat:no-repeat;
+    background-image:url(http://m.ci123.com/home_wap/img/icon.png)
+}
+.head .login-btn {
+    position:relative;
+    float:right;
+    width:58px;
+    height:42px;
+    font-size:16px;
+    text-align:center;
+    line-height:42px;
+    color:#fff
+}
+.head .login-btn img {
+    position:absolute;
+    top:6px;
+    right:6px;
+    width:30px;
+    height:30px;
+    border-radius:30px
+}
+.head .login-btn .has-new {
+    position:absolute;
+    top:4px;
+    right:4px;
+    width:4px;
+    height:4px;
+    border-radius:4px;
+    border:2px solid #fff;
+    background-color:#fc6463
+}
+.has-new {
+    display:none
+}
+.swipe {
+    overflow:hidden;
+    visibility:hidden;
+    position:relative
+}
+.swipe-wrap {
+    overflow:hidden;
+    position:relative
+}
+.swipe-wrap>div {
+    float:left;
+    width:100%;
+    position:relative
+}
+.recom {
+    position:relative
+}
+.recom-img {
+    display:block
+}
+.recom-img img {
+    display:block;
+    width:100%;
+    border:0 none
+}
+.dot-area {
+    position:absolute;
+    left:50%;
+    bottom:10px;
+    width:68px;
+    margin-left:-34px
+}
+.dot {
+    float:left;
+    width:8px;
+    height:8px;
+    margin-right:12px;
+    background-color:#d6d6d6;
+    border-radius:8px
+}
+.dot:last-child {
+    margin-right:0
+}
+.dot.on {
+    background-color:#fc6463
+}
+.app-recom {
+    position:relative;
+    height:126px;
+    padding-left:10px;
+    padding-right:10px;
+    background-color:#fff;
+    margin-bottom:10px
+}
+.app-recom .swipe-wrap {
+    height:46px
+}
+.app-recom .swipe-wrap .recom-app-wrapper {
+    margin:auto
+}
+.app-recom .swipe-wrap a.recom-app {
+    float:left;
+    width:46%;
+    width:46%;
+    height:46px;
+    margin-left:4%;
+    background-image:url(http://m.ci123.com/home_wap/img/icon.png);
+    background-size:140px;
+    background-repeat:no-repeat
+}
+.app-recom .swipe-wrap a.recom-app.app-yew {
+    background-position:0 -390px
+}
+.app-recom .swipe-wrap a.recom-app.app-yqtx {
+    background-position:0 -455px
+}
+.app-recom .swipe-wrap a.recom-app.app-mmsq {
+    background-position:0 -520px
+}
+.app-recom .swipe-wrap a.recom-app.app-yezn {
+    background-position:0 -585px
+}
+.app-recom .swipe-wrap a.recom-app.app-yewd {
+    background-position:0 -650px
+}
+.app-recom .swipe-wrap a.recom-app.app-byzs {
+    background-position:0 -715px
+}
+.app-recom-title {
+    position:relative;
+    height:36px;
+    margin-bottom:8px
+}
+.app-recom-title span.line {
+    position:absolute;
+    top:18px;
+    left:0;
+    width:100%;
+    height:1px;
+    border-top:1px solid #e6e4e4
+}
+.app-recom-title span.name {
+    position:absolute;
+    top:0;
+    left:50%;
+    width:100px;
+    height:36px;
+    margin-left:-50px;
+    background-color:#fff;
+    text-align:center;
+    font-size:18px;
+    line-height:36px;
+    color:#b5b5b5
+}
+.app-dot-area {
+    position:absolute;
+    left:50%;
+    bottom:10px;
+    width:48px;
+    margin-left:-24px
+}
+.app-dot {
+    float:left;
+    width:8px;
+    height:8px;
+    margin-right:12px;
+    background-color:#d6d6d6;
+    border-radius:8px
+}
+.app-dot:last-child {
+    margin-right:0
+}
+.app-dot.app-on {
+    background-color:#fc6463
+}
+.kinds {
+    height:180px;
+    background-color:#fff;
+    margin-bottom:10px;
+    padding-bottom:6px
+}
+.kinds ul {
+    width:320px;
+    margin:auto
+}
+.kinds li {
+    float:left;
+    width:80px;
+    height:76px;
+    margin-top:14px;
+    font-size:14px;
+    line-height:30px;
+    text-align:center
+}
+.kinds li a {
+    display:block;
+    width:80px;
+    height:76px
+}
+.kinds li a i {
+    display:block;
+    width:80px;
+    height:46px;
+    background-image:url(http://m.ci123.com/home_wap/img/icon.png);
+    background-repeat:no-repeat;
+    background-size:140px
+}
+.kinds li a.mmj i {
+    background-position:16px -57px
+}
+.kinds li a.yqzk i {
+    background-position:-56px -57px
+}
+.kinds li a.yezk i {
+    background-position:16px -126px
+}
+.kinds li a.mmcf i {
+    background-position:-56px -126px
+}
+.kinds li a.nbnc i {
+    background-position:16px -197px
+}
+.kinds li a.luntan i {
+    background-position:-56px -197px
+}
+.kinds li a.boke i {
+    background-position:16px -271px
+}
+.kinds li a.wenda i {
+    background-position:-56px -271px
+}
+.box {
+    background-color:#fff;
+    margin-bottom:10px
+}
+.box-title {
+    height:36px;
+    padding-left:10px;
+    padding-right:10px
+}
+.box-title .title-name {
+    float:left;
+    width:120px;
+    height:36px;
+    font-size:18px;
+    line-height:36px;
+    color:#fc6463
+}
+.box-title .title-more {
+    float:right;
+    width:48px;
+    height:36px;
+    font-size:12px;
+    color:#666;
+    text-align:center;
+    line-height:36px;
+    font-family:Sans-serif;
+    text-align:right
+}
+.mamagou .mamagou-wrapper {
+    display:block;
+    width:100%
+}
+.mamagou .good-img {
+    position:relative;
+    width:100%
+}
+.mamagou .good-img img {
+    width:100%;
+    min-height:90px
+}
+.mamagou .good-img .last-day {
+    position:absolute;
+    top:0;
+    right:0;
+    width:45px;
+    height:36px;
+    padding-left:10px;
+    font-size:12px;
+    line-height:36px;
+    text-align:center;
+    color:#fff;
+    background-image:url(http://m.ci123.com/home_wap/img/icon.png);
+    background-repeat:no-repeat;
+    background-size:140px;
+    background-position:-4px -344px
+}
+.mamagou .good-desc {
+    height:28px;
+    padding-left:10px;
+    padding-right:10px;
+    color:#666;
+    line-height:28px
+}
+.mamagou .good-desc .percent {
+    float:right
+}
+.mamagou .good-desc .percent .red {
+    color:#fc6463
+}
+.shiyong dl {
+    padding-bottom:10px;
+    padding-left:10px;
+    padding-right:10px
+}
+.shiyong dl dt {
+    position:relative;
+    float:left;
+    width:34%;
+    height:100px
+}
+.shiyong dl dt img {
+    width:100px
+}
+.shiyong dl dt .sy-mask {
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100px;
+    height:20px;
+    line-height:20px;
+    text-align:center;
+    font-style:12px;
+    color:#fff;
+    background-color:rgba(0,0,0,.4)
+}
+.shiyong dl dt .sy-mask span {
+    color:#fc6463
+}
+.shiyong dl dd {
+    float:right;
+    width:63%
+}
+.shiyong dl dd .sy-name {
+    height:36px;
+    margin-bottom:6px;
+    line-height:18px;
+    font-size:15px;
+    overflow:hidden;
+    color:#666;
+    font-weight:bold
+}
+.shiyong dl dd .sy-info {
+    height:18px;
+    color:#666;
+    line-height:18px;
+    overflow:hidden
+}
+.shiyong dl dd .sy-info span {
+    color:#fc6463
+}
+.shiyong dl dd .apply-btn {
+    width:178px;
+    height:34px;
+    margin-top:6px;
+    margin-left:6px;
+    line-height:34px;
+    text-align:center;
+    background-color:#fc6463;
+    font-size:18px;
+    border-radius:5px
+}
+.shiyong dl dd .apply-btn a {
+    display:block;
+    width:178px;
+    height:34px;
+    color:#fff
+}
+.hot {
+    padding-bottom:4px
+}
+.hot li {
+    height:38px;
+    padding-left:10px;
+    padding-right:10px;
+    line-height:38px;
+    border-top:1px solid #f5f0eb;
+    overflow:hidden
+}
+.hot li a {
+    color:#777
+}
+.footer {
+    padding-bottom:50px
+}
+.footer p {
+    height:22px;
+    line-height:22px;
+    font-size:12px;
+    color:#b9b9b9;
+    text-align:center
+}
+.footer .footer-version {
+    position:relative;
+    text-align:center
+}
+.footer .footer-version a {
+    height:20px;
+    padding-left:10px;
+    padding-right:10px;
+    line-height:20px;
+    color:#b9b9b9;
+    font-size:14px
+}
+.footer .footer-version span.aline {
+    position:absolute;
+    top:2px;
+    left:50%;
+    width:1px;
+    height:16px;
+    background-color:#b9b9b9
+}
+.nav {
+    height:16px;
+    margin-bottom:16px;
+    text-align:center
+}
+.nav a {
+    padding-left:8px;
+    padding-right:8px;
+    line-height:16px;
+    color:#b9b9b9;
+    border-right:1px solid #b9b9b9
+}
+.nav a.cur {
+    color:#fc6463
+}
+.nav a:last-child {
+    border-right:0 none
+}
+.fixed-recom {
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:50px;
+    background-color:rgba(66,66,74,0.8)
+}
+.fixed-recom .fixed-close {
+    position:absolute;
+    z-index:10;
+    top:0;
+    right:0;
+    width:20px;
+    height:20px;
+    text-align:center;
+    font-size:14px;
+    line-height:20px;
+    color:#eee;
+    font-family:Arial
+}
+.fixed-recom .fixed-wrap {
+    position:relative;
+    display:block;
+    height:50px;
+    margin:auto;
+    padding-left:20px;
+    padding-right:20px
+}
+.fixed-recom .fixed-wrap .fixed-img {
+    position:absolute;
+    top:-10px;
+    left:20px;
+    width:50px;
+    height:50px;
+    background-image:url(http://m.ci123.com/home_wap/img/icon.png);
+    background-size:156px;
+    background-repeat:no-repeat;
+    background-position:0 -434px
+}
+.fixed-recom .fixed-wrap .fixed-desc {
+    position:absolute;
+    top:0;
+    left:44%;
+    width:110px;
+    height:40px;
+    margin-left:-55px;
+    background-image:url(http://m.ci123.com/home_wap/img/icon.png);
+    background-repeat:no-repeat;
+    background-size:140px;
+    background-position:0 -824px
+}
+.fixed-recom .fixed-wrap .fixed-btn {
+    position:absolute;
+    top:0;
+    right:30px;
+    width:86px;
+    height:30px;
+    margin-top:8px;
+    margin-left:8px;
+    font-size:15px;
+    line-height:30px;
+    text-align:center;
+    background-color:#f9f9f9;
+    color:#fc6463;
+    border-radius:3px
+}
+.mfooter {
+    width:100%;
+    height:50px;
+    padding-top:3px;
+    background:#f5f5f5
+}
+.mfooter .sbanner {
+    padding:10px 0;
+    text-align:center;
+    height:30px
+}
+.mfooter .sbanner .search_inp {
+    height:28px;
+    padding-left:6px;
+    border:1px solid #e2e2e2;
+    border-radius:5px;
+    vertical-align:top
+}
+.mfooter .sbanner .search_btn {
+    width:94px;
+    height:30px;
+    color:#898989;
+    font-family:"å¾®è½¯é›…é»‘";
+    text-align:center;
+    line-height:30px;
+    background-image:url(http://m.ci123.com/home_wap/img/icon.png);
+    background-repeat:no-repeat;
+    background-position:0 -1748px;
+    background-color:transparent;
+    border:0 none
+}

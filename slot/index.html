@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="format-detection" content="telephone=yes"/>
+        <meta name="msapplication-tap-highlight" content="no" />
+
+        <link rel="stylesheet" type="text/css" href="css/base.css" />
+        <link rel="stylesheet" type="text/css" href="css/animate.css" />
+        <link rel="stylesheet" type="text/css" href="css/weui.css" />
+        <link rel="stylesheet" href="layer/mobile/need/layer.css">
+        <link rel="stylesheet" href="css/FruitGame-style.css">
+        <title>开车游戏</title>
+        <style>
+            body{
+                background-color: #07120C;
+            }
+
+             #wrap{
+                display:none;
+             }
+
+            #loading{
+                position: fixed;
+                top: 40%;
+                left: 40%;
+                color:white;
+                width: 20%;
+                height: 50px;
+                text-align: center;
+                font-size: 20px;
+            }
+
+            /* layer Dialog style*/
+            .layui-layer-dialog {
+                border: 8px solid rgba(0, 0, 0, 0.09)  !important;
+                border-radius: 15px !important;
+            }
+
+            .layui-layer-molv .layui-layer-title {
+                background: #3d2b52  !important;
+            }
+            .layui-layer-title {
+                border-radius: 8px 8px 0 0 !important;
+            }
+            .layui-layer-btn {
+                border-radius: 0 0 8px 8px !important;
+                padding: 0px 10px 12px !important;
+            }
+            .layui-layer-molv .layui-layer-btn a {
+                background: #3d2b52  !important;
+            }
+            .layui-layer-btn a {
+                padding: 0px 22px !important;
+                margin: 10px 6px !important;
+                border-radius: 5px !important;
+                border: none !important;
+            }
+            .layui-layer-molv .layui-layer-btn .layui-layer-btn1 {
+                background: #3d2b52  !important;
+                color: #fff;
+            }
+            .weui-btn:after{ border: 0;}
+
+            #lottery{
+                width:100%;
+                background:url(img/index/bg.jpg) no-repeat;
+                background-size: 100%;
+                overflow: hidden;
+            }
+            #lottery table{
+                width: 93%;
+                margin: auto;
+                overflow: hidden;
+                margin-top: .98rem;
+            }
+            #lottery table td{position:relative;padding: .1rem;}
+            /*#lottery table td img{display:block;width:20px;height:20px};*/
+            #lottery .centerTd{
+                /*background:url(img/img9.jpg) no-repeat;*/
+                background-size: 100% 100%;
+            }
+            #lottery table td.active .mask{display:block;}
+            #lottery table td.active2 .mask{display:block;}
+            #lottery table td.active3 .mask{display:block;}
+            #lottery table td.active4 .mask{display:block;}
+
+            #panbg{
+                width: 2rem;
+                height: 1rem;
+                background:url(img/index/panbg3.png) no-repeat;
+                background-size: 100% 100%;
+                position: absolute;
+                left: 26%;
+                bottom:5px;
+            }
+            #zheng{
+                width: .8rem;
+                height: .07rem;
+                background:url(img/index/gfr.png) no-repeat;
+                background-size: 100% 100%;
+                position: absolute;
+                left: 51%;
+                bottom: 4px;
+                transform-origin:left bottom ;
+            }
+
+            .ani-zheng{
+                -webkit-animation: zhangRotate 2s cubic-bezier(.19,.74,.51,1.21) both;
+                        animation: zhangRotate 2s cubic-bezier(.19,.74,.51,1.21) both;
+            }
+            @-webkit-keyframes zhangRotate {
+                0% {transform:rotateZ(-180deg);  }
+                100% {transform:rotateZ(0deg);  }
+            }
+            @keyframes zhangRotate {
+                0% {transform:rotateZ(-180deg);  }
+                100% {transform:rotateZ(0deg);  }
+            }
+
+            #showNum{
+                width: .72rem;
+                position: absolute;
+                left: 42%;
+                top:2rem;
+                text-align: center;
+                /*background:url(__PUBLIC__/Home/images/SLOT/index/Countdown.png);*/
+                background-size: 100% 100%;
+                color:white;
+                font-size: 26px;
+            }
+            .mask{
+                width:180%;
+                height:180%;
+                position:absolute;
+                left:-.35rem;
+                top:-.35rem;
+                background:url(img/index/car-icon/mask.png) no-repeat;
+                background-size: 100% 100%;
+                display:none;
+            }
+
+            #choumaTop{
+                margin-bottom: .1rem;
+            }
+            #choumaTop .weui-flex__item{
+                font-family: 'pinghei';
+                margin:0 2px 2px 2px;
+                text-align: center;
+                color:white;
+                background:url(img/index/pup/s.png) no-repeat;
+                background-size: 100% 100%;
+            }
+            #choumaBottom{
+                margin-top: 0.1rem;
+            }
+            #choumaBottom a:hover{
+
+            }
+
+            @font-face {
+                  font-family: 'pinghei';
+                  src:url('img/font/digifaw.ttf') format('truetype');
+                  font-weight: normal;
+                  font-style: normal;
+                }
+
+            .fonts{
+                font-family: 'pinghei';
+                font-size: 20px;
+            }
+            /*筹码*/
+            .jetton-img{
+                width: 80px;
+                margin: 5px;
+            }
+            .jetton-a:hover{
+                background: rgba(204, 204, 204, 0.8);
+                border-radius: 10px;
+                padding: 35px 0;
+            }
+            /*顶部导航 style */
+            .skew{
+                position: absolute;
+            }
+            .skew img{
+                width: 85px; height: 35px;
+            }
+            .skew:hover{
+                -webkit-transition-timing-function: cubic-bezier(0.6, 4, 0.3, 0.8);
+                transition-timing-function: cubic-bezier(0.6, 4, 0.3, 0.8);
+                -webkit-animation: gelatine 0.5s 1;
+                animation: gelatine 0.5s 1;
+            }
+
+            #menu{
+              margin: 0.60rem auto 0;
+                width: 85%;
+                text-align: center;
+
+            }
+            #menu img{
+                width:70px;
+            }
+
+            /*活动中心适配居中*/
+            #actionCenter{
+                left: 2.2rem; top: -5px;
+            }
+
+            @media screen and (device-width: 320px) and (device-height: 568px){ /* iphone5 */
+                #actionCenter{
+                    left: 2rem;
+                }
+
+                #menu img{width: 37px;}
+            }
+            @media screen and (device-width: 375px) and (device-height: 667px){ /* iphone6 */
+                #lottery table{margin-top: .99rem;}
+                #lottery table td{position:relative;padding: .11rem}
+            }
+            @media screen and (device-width: 414px) and (device-height: 736px){ /* iphone6 Plus */
+                #showNum{ }
+                #menu{margin-top: 0.5rem;}
+                #choumaTop{margin-top: 0.2rem;}
+            }
+            @media screen and (device-width: 360px) and (device-height: 640px){ /* Galaxy*/
+
+            }
+            @media screen and (device-width: 412px) and (device-height: 732px){ /* Galaxy Nexus*/
+                #showNum{ }
+                #choumaTop{margin-top: 0.1rem;margin-bottom: 0px;}
+            }
+
+        </style>
+        <!--[if IE]>
+        <script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+    <div id="loading">
+        loading...
+    </div>
+    <div id="wrap">
+
+    <!-- 游戏说明-->
+    <a href='javascript:;' id="playTip" class="skew" style="left: 0; top: -5px;" ><img src="img/index/btn-playTip.png" style=" margin: 10px 0 5px 15px;"></a>
+     <!-- 活动中心 -->
+        <a href='javascript:;' id="actionCenter" class="skew" ><img src="img/index/btn-actionCenter.png" style=" margin: 10px 0 5px 15px;"></a>
+    <!-- 开奖记录-->
+    <a href='/User/kjList.html' class="skew" style="right: 0; top: -5px;"><img src="img/index/btn-history.png" style="margin: 10px 15px 5px 0;"></a>
+        <!--效果html开始-->
+        <div id="lottery">
+
+            <!-- <span class="showNum">5</span> -->
+            <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td class="lottery-unit lottery-unit-0"><img src="img/index/car-icon/nissan.png"><div class="mask"></div></td>
+                    <td class="lottery-unit lottery-unit-1"><img src="img/index/car-icon/Honda.png"><div class="mask"></div></td>
+                    <td class="lottery-unit lottery-unit-2"><img src="img/index/car-icon/Ferrari-25.png"><div class="mask"></div></td>
+                    <td class="lottery-unit lottery-unit-3"><img src="img/index/car-icon/Ferrari-50.png"><div class="mask"></div></td>
+                    <td class="lottery-unit lottery-unit-4"><img src="img/index/car-icon/WulingHG.png"><div class="mask"></div></td>
+                    <td class="lottery-unit lottery-unit-5"><img src="img/index/car-icon/WulingHG-2.png"><div class="mask"></div></td>
+                    <td class="lottery-unit lottery-unit-6"><img src="img/index/car-icon/Toyota.png"><div class="mask"></div></td>
+                </tr>
+                <tr>
+                    <td class="lottery-unit lottery-unit-23"><img src="img/index/car-icon/Honda-2.png"><div class="mask"></div></td>
+                    <td colspan="5" rowspan="5" class="centerTd" style="position: relative;">
+                        <div id="panbg">
+                            <div id="zheng"></div>
+                        </div>
+                        <div id="showNum" class="fonts">
+                        </div>
+                    </td>
+                    <td class="lottery-unit lottery-unit-7"><img src="img/index/car-icon/Audi.png"><div class="mask"></div></td>
+                </tr>
+                <tr>
+                    <td class="lottery-unit lottery-unit-22"><img src="img/index/car-icon/WulingHG.png"><div class="mask"></div></td>
+                    <td class="lottery-unit lottery-unit-8"><img src="img/index/car-icon/Audi-2.png"><div class="mask"></div></td>
+                </tr>
+                <tr>
+                    <td class="lottery-unit lottery-unit-21"><img src="img/index/car-icon/goodlook.png"><div class="mask"></div></td>
+                    <td class="lottery-unit lottery-unit-9"><img src="img/index/car-icon/goodlook.png"><div class="mask"></div></td>
+                </tr>
+                <tr>
+                    <td class="lottery-unit lottery-unit-20"><img src="img/index/car-icon/Benz-2.png"><div class="mask"></div></td>
+                    <td class="lottery-unit lottery-unit-10"><img src="img/index/car-icon/WulingHG.png"><div class="mask"></div></td>
+                </tr>
+                <tr>
+                    <td class="lottery-unit lottery-unit-19"><img src="img/index/car-icon/Benz.png"><div class="mask"></div></td>
+                    <td class="lottery-unit lottery-unit-11"><img src="img/index/car-icon/nissan-2.png"><div class="mask"></div></td>
+                </tr>
+                <tr>
+                    <td class="lottery-unit lottery-unit-18"><img src="img/index/car-icon/Toyota.png"><div class="mask"></div></td>
+                    <td class="lottery-unit lottery-unit-17"><img src="img/index/car-icon/Toyota-2.png"><div class="mask"></div></td>
+                    <td class="lottery-unit lottery-unit-16"><img src="img/index/car-icon/WulingHG.png"><div class="mask"></div></td>
+                    <td class="lottery-unit lottery-unit-15"><img src="img/index/car-icon/BMW.png"><div class="mask"></div></td>
+                    <td class="lottery-unit lottery-unit-14"><img src="img/index/car-icon/BMW-2.png"><div class="mask"></div></td>
+                    <td class="lottery-unit lottery-unit-13"><img src="img/index/car-icon/Honda.png"><div class="mask"></div></td>
+                    <td class="lottery-unit lottery-unit-12"><img src="img/index/car-icon/Honda-2.png"><div class="mask"></div></td>
+                </tr>
+            </table>
+            <div class="weui-flex" id="menu">
+                <div class="weui-flex__item"> <a href="javascript:;" onclick="Rate(5)"><img class="glowing green" src="img/index/times-5.png" alt=""   /></a></div>
+                <div class="weui-flex__item"> <a href="javascript:;" onclick="Rate(10)"><img class="glowing green" src="img/index/times-10.png" alt=""  /></a></div>
+                <div class="weui-flex__item"><a href="javascript:;" onclick="Rate(20)" ><img class="glowing green" src="img/index/times-20.png" alt="" /></a></div>
+                <div class="weui-flex__item"> <a href="javascript:;" id="back" class="go"><img class="glowing red" src="img/index/back.png" alt="img  /></a></div>
+                <div class="weui-flex__item"> <a href="javascript:;" id="go" class="go"><img class="glowing red" src="img/index/go.png" alt=""  /></a></div>
+            </div>
+
+
+            <!-- 选择筹码 -->
+            <div class="weui-flex" id="choumaBottom">
+                <div class="weui-flex__item">
+                    <a href="javascript:;" onclick="select_type('1')" ><img class="glowing black" src="img/index/pup/Ferrari-50.png" alt="" /></a>
+                </div>
+                <div class="weui-flex__item">
+                    <a href="javascript:;" onclick="select_type('2')"  ><img class="glowing black" src="img/index/pup/Audi-20.png" alt="" /></a>
+                </div>
+                <div class="weui-flex__item">
+                    <a href="javascript:;" onclick="select_type('3')"  ><img class="glowing black" src="img/index/pup/BMW-20.png" alt="" /></a>
+                </div>
+                <div class="weui-flex__item">
+                    <a href="javascript:;" onclick="select_type('4')"  > <img class="glowing black" src="img/index/pup/Benz-20.png" alt="" /></a>
+                </div>
+                <div class="weui-flex__item">
+                    <a href="javascript:;" onclick="select_type('5')"  ><img class="glowing black" src="img/index/pup/Toyota-10.png" alt="" /></a>
+                </div>
+                <div class="weui-flex__item">
+                    <a href="javascript:;" onclick="select_type('6')"  ><img class="glowing black" src="img/index/pup/Honda-10.png" alt="" /></a>
+                </div>
+                <div class="weui-flex__item">
+                    <a href="javascript:;" onclick="select_type('7')"  ><img class="glowing black" src="img/index/pup/nissan-10.png" alt="" /></a>
+                </div>
+                <div class="weui-flex__item">
+                    <a href="javascript:;" onclick="select_type('8')"  ><img class="glowing black" src="img/index/pup/WulingHG-5.png" alt="" /></a>
+                </div>
+            </div>
+
+            <!-- 底部筹码 -->
+            <!--{$str}-->
+            <div class="weui-flex" id="choumaTop"><div class="weui-flex__item jettonCount">0</div><div class="weui-flex__item jettonCount">0</div><div class="weui-flex__item jettonCount">0</div><div class="weui-flex__item jettonCount">0</div><div class="weui-flex__item jettonCount">0</div><div class="weui-flex__item jettonCount">0</div><div class="weui-flex__item jettonCount">0</div><div class="weui-flex__item jettonCount">0</div></div>
+        </div>
+        <!-- 底部导航 -->
+        <nav>
+            <div class="weui-tabbar" style="background: #fff;">
+                <!-- <a href="{:U('Ssc/index')}" class="weui-tabbar__item">
+                    <i class="my-bet-<?php if(CONTROLLER_NAME == 'Ssc' && ACTION_NAME == 'index'){echo '2';}else{echo '1';} ?> weui-tabbar__icon "></i>
+                    <p class="weui-tabbar__label">时时彩</p
+                </a> -->
+                <!--<a href=<if condition="$hongbao">"/Home/HongBao/open/good_id/{$hongbao['good_id']}"<else />"/HongBao/index.html"</if> class="weui-tabbar__item" >
+                     <i class="hongbao-<?php if(CONTROLLER_NAME == 'HongBao' && ACTION_NAME == 'index'){echo '2';}else{echo '1';} ?> weui-tabbar__icon "></i>
+                     <p class="weui-tabbar__label" style="color: #fff; position: relative;">抢水果 </p>
+                     <if condition="$hongbao"><span class="weui-badge" style="position: absolute;top: 3px;left: 52px;">1</span></if>
+                 </a>-->
+                <a href="{:U('DuoBao/index')}" class="weui-tabbar__item">
+                    <i class="duoBao-2 weui-tabbar__icon "></i>
+                    <p class="weui-tabbar__label" style="color: #000;">夺宝游戏</p>
+                </a>
+                <!-- <a href="{:U('Index/index')}" class="weui-tabbar__item">
+                    <i class="Guess-<?php if(CONTROLLER_NAME == 'Index' && ACTION_NAME == 'index'){echo '2';}else{echo '1';} ?> weui-tabbar__icon "></i>
+                    <p class="weui-tabbar__label" style="color: #fff;">猜果游戏</p>
+                </a> -->
+                <!--<a href="{:U('User/myqrCode')}" class="weui-tabbar__item">
+                    <i class="share-<?php if(CONTROLLER_NAME == 'User' && ACTION_NAME == 'myqrCode'){echo '2';}else{echo '1';} ?> weui-tabbar__icon "></i>
+                    <p class="weui-tabbar__label" style="color: #fff;">分享赚钱</p>
+                </a>-->
+                <a href="{:U('User/index')}" class="weui-tabbar__item">
+                    <i class="me-1 weui-tabbar__icon "></i>
+                    <p class="weui-tabbar__label" style="color: #000;">个人中心</p>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <script type="text/javascript" src="js/jquery-1.11.2.js"></script>
+        <script src="layer/layer.js"></script>
+    <script type="text/javascript" src="js/shiyin.js"></script>
+    <script type="text/javascript" src="js/style.js"></script>
+    <script type="text/javascript" src="js/style.js"></script>
+    <script type="text/javascript" src="js/fastclick.js"></script>
+
+        <script>
+        var carData = [[3],[7],[15],[19],[6,18],[1,13],[0],[4,10,16,22],[2],[8],[14],[20],[17],[12,23],[11],[5],[9,21]];
+
+        var backNum_1 = -1;
+        var backNum_2 = -1;
+        var backNum_3 = -1;
+        var backNum_4 = -1;
+        var priceNum_1 = 0;
+        var priceNum_2 = 0;
+        var priceNum_3 = 0;
+        var priceNum_4 = 0;
+        var rollLuck = function(){};
+        var much = false;
+
+        $(function () {
+            FastClick.attach(document.body);
+            var arr=[];
+            $("#go").click(function () {
+                     arr.splice(0,arr.length); //清空数组
+                    $("#choumaTop div").each(function (index, dom) {
+                        //第一个数字不为0，如0-1*5，反之添加进数组
+                            if($(this).attr("count")){
+                                arr.push($(this).attr("count"));
+                            }
+                        });
+                    buy_goods(arr);
+            })
+
+            $("#back").click(function () {
+                var s=document.getElementById("choumaTop");
+                var chils= s.childNodes;
+                for(var i=0;i<chils.length;i++){
+                    chils[i].innerText="0";
+                    chils[i].setAttribute("count","");
+                }
+            });
+
+            // 处理往回的数
+                var handleNum = function(){
+                    priceNum_1 = carData[backNum_1][Math.round(Math.random()*(carData[backNum_1].length-1))];
+                    if(backNum_2 > -1){
+                        priceNum_2 = carData[backNum_2][Math.round(Math.random()*(carData[backNum_2].length-1))];
+                    }
+                    if(backNum_3 > -1){
+                        priceNum_3 = carData[backNum_3][Math.round(Math.random()*(carData[backNum_3].length-1))];
+                    }
+                    if(backNum_4 > -1){
+                        priceNum_4 = carData[backNum_4][Math.round(Math.random()*(carData[backNum_4].length-1))];
+                    }
+                    priceNum_Luck = carData[carData.length-1][Math.round(Math.random())];
+                }
+
+
+            //开奖记录
+            $("#history").click(function () {
+                var tip="<img src='img/index/ComShows.png' width='300' height='300' >" +
+                        "<a href='javascript:;' onclick='clsoeBtn();' class='weui-btn close-play'></a>";
+                layer.open({
+                    type: 1,
+                    title: false,
+                    closeBtn: 0,
+                    shadeClose: true,
+                    skin: 'yourclass',
+                    content:tip
+                });
+            });
+
+            //活动中心
+            $("#actionCenter").click(function () {
+                var tip="<img src='img/index/playPup-3.png' style='width: 350px; height: 465px;'><i class='close-icon' onclick='clsoeBtn();' style='padding: 70px; top: 0;'></i>" +
+                        "<a href='javascript:;' onclick='clsoeBtn();' class='weui-btn close-play' style=' bottom: 0;padding: 50px 170px;'></a>";
+                layer.open({
+                    type: 1,
+                    title: false,
+                    closeBtn: 0,
+                    shadeClose: true,
+                    skin: 'yourclass',
+                    content:tip
+                });
+            });
+
+            //游戏说明
+            $("#playTip").click(function () {
+                var tip="<img src='img/index/playPup.png' style='width: 350px; height: 465px;'><i class='close-icon' onclick='clsoeBtn();' style='padding: 70px; top: 0;'></i>" +
+                        "<a href='javascript:;' onclick='clsoeBtn();' class='weui-btn close-play' style=' bottom: 0;padding: 50px 170px;'></a>";
+                layer.open({
+                    type: 1,
+                    title: false,
+                    closeBtn: 0,
+                    shadeClose: true,
+                    skin: 'yourclass',
+                    content:tip
+                });
+            });
+
+
+            //倒计时
+            var day = 0,
+                    hour = 0,
+                    minute = 0,
+                    second = 0;   //时间默认值
+            var PeriodNumber = 46546;   //获取浏览页面时的期数
+
+            /* 开奖程序*/
+            function timeres(intDiff){
+                intDiff = parseInt(intDiff);
+
+                if(intDiff > 0){
+                    day = Math.floor(intDiff / (60 * 60 * 24));
+                    hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+                    minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+                    second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+                    if (minute <= 9) minute = '0' + minute;
+                    if (second <= 9) second = '0' + second;
+                    setTimeout(function(){timeres(intDiff - 1)},1000);
+                }else{
+
+                    layer.closeAll();
+                    //发送ajax请求开奖信息
+                    $.ajax({
+                        url:"{:U('index')}",
+                        type:'post',
+                        dataType:'JSON',
+                        data:{'getTime':PeriodNumber},
+                        success:function(res){
+                            // console.log(res);
+                            var r_time = parseInt(res.time);
+                            if(r_time > 0){
+                                PeriodNumber = res.getTime;
+                                timeres(r_time);
+
+                               backNum_1=res.number_ge-1;
+                               if(res.number_shi != null ){
+                                   backNum_2=res.number_shi-1;
+                               }
+                               if(res.number_bai != null ){
+                                   backNum_3=res.number_bai-1;
+                               }
+                               if(res.number_qian != null ){
+                                   backNum_4=res.number_qian-1;
+                               }
+
+                               if(res.n == 1 ){
+                                   much = false
+                               }else if(res.n == 2){
+                                   much = true
+                               }
+
+                                handleNum();
+                                rollStart();
+
+                                kjMsg=res.successMsg+'<br/><p style="font-size:14px; text-align: center;">'+res.win_msg+'</p>';
+                                // kjbox(res.successMsg);
+                            }else{
+                                //一秒后重新查询状态
+                                layer.msg(res.errorMsg,{icon: 7});
+                                setTimeout(function(){timeres(0)},1000);
+                            }
+                        }
+                    });
+                }
+                $('#showNum').text(intDiff);
+                daoshu(intDiff);
+            }
+            timeres(parseInt(60));//倒计时总秒数量
+            /*筹码弹窗*/
+            $(".slot").click(function () {
+                var self=this;
+                layer.open({
+                    type: 1,
+                    title: false,
+                    closeBtn: 0,
+                    shadeClose: true,
+                    skin: 'yourclass',
+                    content:jettonHtml()
+                });
+            });
+        })
+
+    // 倒数转盘
+    var daoshu = function(min){
+        var min2 = (60-min)*(-3);
+        if(min == 0){
+            $('#zheng').addClass('ani-zheng');
+        }else{
+            if(min<59 && min>0){
+                if($('#zheng').hasClass('ani-zheng')){
+                    $('#zheng').removeClass('ani-zheng');
+                }
+                $('#zheng').css({transform:"rotate("+min2+"deg)"});
+            }
+        }
+    }
+
+    // 创建一个roll函数
+    var creatRollFun = function(obj,prizeStep){
+        var fun = function(){
+            obj.times += 1;
+            obj.roll();//转动过程调用的是obj的roll方法，这里是第一次调用初始化
+                if (obj.times > obj.cycle && obj.prize==obj.index){
+                    clearTimeout(obj.timer);
+                    obj.prize=-1;
+                    obj.times=0;
+                    click=false;
+                    if(obj == lottery){
+                        // alert('第一次结束');
+                        setTimeout(function(){
+                            if(much){
+                                rollopen2();
+                            }else{
+                                kjbox(kjMsg);
+                            }
+                        }, lottery.speed);
+                    }else if(obj == lotteryLuck){
+                        // alert('Luck结束');
+                        setTimeout(function(){
+                            rollopen();
+                        }, 2100);
+                    }else if(obj == lottery2){
+                        // alert('第二次结束');
+                        setTimeout(function(){
+                            if(backNum_3 > -1){
+                                rollopen3();
+                            }else{
+                                kjbox(kjMsg);
+                            }
+                        }, 100);
+                    }else if(obj == lottery3){
+                        // alert('第三次结束');
+                        setTimeout(function(){
+                            if(backNum_4 > -1){
+                                rollopen4();
+                            }else{
+                                kjbox(kjMsg);
+                            }
+                        }, 100);
+                    }else if(obj == lottery4){
+                        setTimeout(function(){
+                            kjbox(kjMsg);
+                        }, 100);
+                    }
+                }else {
+                    if(obj == lottery){
+                        if (obj.times<obj.cycle) {
+                            obj.speed -= 10;
+                        }else if(obj.times==obj.cycle) {
+                            obj.prize = prizeStep;
+                        }else{
+                            if (obj.times > obj.cycle+10 && ((obj.prize==0 && obj.index==23) || obj.prize==obj.index+1)) {
+                                obj.speed += 110;
+                            }else{
+                                obj.speed += 10;
+                            }
+                        }
+                        if (obj.speed<40) {
+                            obj.speed=40;
+                        }
+                    }else if(obj == lotteryLuck || obj == lottery2 || obj == lottery3 || obj == lottery4){
+                        if(obj.times==obj.cycle){
+                            obj.prize = prizeStep;
+                            }
+                    }
+                    obj.timer = setTimeout(fun,obj.speed);//循环调用
+            }
+                return false;
+        }
+        return fun;
+    }
+
+
+
+        // 创建一个对象
+        var creatObj = function(indexStep,cycleNum,activeClass){
+            var obj = {
+                index:indexStep,    //当前转动到哪个位置，起点位置
+                count:0,    //总共有多少个位置
+                timer:0,    //setTimeout的ID，用clearTimeout清除
+                times:0,    //转动次数
+                cycle:cycleNum,    //转动基本次数：即至少需要转动多少次再进入抽奖环节
+                prize:-1,    //中奖位置
+                init:function(id){
+                    if ($("#"+id).find(".lottery-unit").length>0) {
+                        $lottery = $("#"+id);
+                        $units = $lottery.find(".lottery-unit");
+                        this.obj = $lottery;
+                        this.count = $units.length;
+                        this.index = indexStep;
+                        $lottery.find(".lottery-unit-"+this.index).addClass(activeClass);
+                    };
+                },
+                roll:function(){
+                    var index = this.index;
+                    var count = this.count;
+                    var lottery = this.obj;
+                    $(lottery).find(".lottery-unit-"+index).removeClass(activeClass);
+                    index += 1;
+                    if (index>count-1) {
+                        index = 0;
+                    };
+                    $(lottery).find(".lottery-unit-"+index).addClass(activeClass);
+                    this.index=index;
+                    return false;
+                }
+            };
+            return obj;
+        }
+
+
+    /********************** goodLuck ************************/
+
+    var rollopenLuck = function(){
+        lotteryLuck.init('lottery');
+        lotteryLuck.speed = 100;
+        rollLuck = creatRollFun(lotteryLuck,priceNum_Luck);
+        rollLuck();
+    }
+    var lotteryLuck = creatObj(-1,46,"active");
+
+    /********************** 第一次 **************************/
+
+    var rollopen = function(){
+       var roll = creatRollFun(lottery,priceNum_1)();
+    }
+    var lottery = creatObj(-1,46,"active");
+
+    /********************** 第二次 **************************/
+
+    var rollopen2 = function(){
+        lottery2 = creatObj(priceNum_1,7,"active2");
+        lottery2.init('lottery');
+        lottery2.speed = 100;
+        var roll2 = creatRollFun(lottery2,priceNum_2)();
+    };
+
+    /********************** 第三次 **************************/
+
+    var rollopen3 = function(){
+        lottery3 = creatObj(priceNum_2,7,"active3");
+        lottery3.init('lottery');
+        lottery3.speed = 100;
+        var roll3 = creatRollFun(lottery3,priceNum_3)();
+    };
+
+    /********************** 第四次 **************************/
+
+    var rollopen4 = function(){
+        lottery4 = creatObj(priceNum_3,7,"active4");
+        lottery4.init('lottery');
+        lottery4.speed = 100;
+        var roll4 = creatRollFun(lottery4,priceNum_4)();
+    };
+
+    // 清楚类名
+    var arrClass = ['active3','active4','active2','active'];
+    var clearClassName = function(){
+        $('.lottery-unit').each(function() {
+            for(var i=0;i<arrClass.length;i++){
+                if($(this).hasClass(arrClass[i])){
+                    $(this).removeClass(arrClass[i]);
+               }
+            }
+        });
+    }
+
+
+    // 开始转动
+    var click=false;
+    var rollStart = function(){
+        clearClassName();
+        if (click) { //click控制一次抽奖过程中不能重复点击抽奖按钮，后面的点击不响应
+                return false;
+            }else{
+                lottery.speed = 50;
+                if(much){
+                    rollopenLuck();
+                }else{
+                    rollopen();    //转圈过程不响应click事件，会将click置为false
+                }
+                click=true; //一次抽奖完成后，设置click为true，可继续抽奖
+                return false;
+            }
+    }
+
+    /* function */
+    /*开奖提示弹窗*/
+    function kjbox(fruit) {
+        var tip="<img src='img/index/ComShows.png' style='width: 280px; height: 225px;' ><i class='close-icon' onclick='clsoeBtn();' style='padding: 70px; top: 0;'></i>" +
+                "<div style='position: absolute; top: 60px; width: 100%;'><h1 style='font-size: 22px; color: #fff; padding: 20px; text-align: center'>"+kjMsg+"</h1></div>" +
+                "<a href='javascript:;' onclick='clsoeBtn();' class='weui-btn close-play' style='bottom:15px; padding: 35px 170px;'></a>";
+        layer.open({
+            type: 1,
+            title: false,
+            closeBtn: 0,
+            shadeClose: true,
+            skin: 'yourclass',
+            content:tip
+        });
+    }
+    /*筹码*/
+    function jettonHtml() {
+        return jetton='<div style=" background-color: rgba(0, 0, 0, 0.59);border-radius: 10px; padding: 20px;">' +
+                '<div class="weui-flex" id="img" style="">'
+                +'<div class="weui-flex__item"><a href="javascript:;" onclick="buy_goods(5)" data-num="5"  class="jetton-a"><img src="img/jetton/jetton-5.png" data-num="5" class="jetton-img"></a></div>'
+                +'<div class="weui-flex__item"><a href="javascript:;" onclick="buy_goods(10)" data-num="10" class="jetton-a"><img src="img/jetton/jetton-10.png" data-num="10" class="jetton-img"></a></div>'
+                +'<div class="weui-flex__item"><a href="javascript:;" onclick="buy_goods(20)" data-num="20" class="jetton-a"><img src="__PUBLIC__/Home/images/SLOT/jetton/jetton-20.png" data-num="20" class="jetton-img"></a></div></div>'
+                +'<div class="weui-flex">'
+                +'<div class="weui-flex__item"><a href="javascript:;" onclick="buy_goods(50)" data-num="50" class="jetton-a"><img src="img/jetton/jetton-50.png" data-num="50" class="jetton-img"></a></div>'
+                +'<div class="weui-flex__item"><a href="javascript:;" onclick="buy_goods(150)" data-num="150" class="jetton-a"><img src="img/jetton/jetton-100.png" data-num="100" class="jetton-img"></a></div>'
+                +'<div class="weui-flex__item"><a href="javascript:;" onclick="buy_goods(200)" data-num="200" class="jetton-a"><img src="img/jetton/jetton-200.png" data-num="200" class="jetton-img"></a></div></div>'
+                +'<div class="pay"><strong>支付方式：</strong>'
+                +'<input type="radio" name="pay" checked class="mgr mgr-danger mgr-lg" value="2" /> 车币 </div>'
+                +'<div style="text-align: center; padding: 0 0 15px 0;"><a href="#" class="weui-btn weui-btn_mini weui-btn_primary">请选择购买金额</a> </div>'
+                +' </div>';
+    }
+    function getPay() {
+        return $("input[name='pay']:checked").val();
+    }
+
+    function Rate(type) {
+        var s=document.getElementById("choumaTop");
+        del_space(s); //调用清理空格的函数
+        var chils= s.childNodes;  //得到s的全部子节点
+
+        if(type == 5){
+            for(var i=0;i<chils.length;i++){
+                chils[i].innerText=parseInt(chils[i].innerText)*5;
+                chils[i].setAttribute('count',parseInt(chils[i].innerText)+"-"+i);
+            }
+        }else if(type == 10){
+            for(var i=0;i<chils.length;i++) {
+                chils[i].innerText = parseInt(chils[i].innerText) * 10;
+                chils[i].setAttribute('count', parseInt(chils[i].innerText) +"-"+i);
+            }
+        }else{
+            for(var i=0;i<chils.length;i++) {
+                chils[i].innerText = parseInt(chils[i].innerText) * 20;
+                chils[i].setAttribute('count', parseInt(chils[i].innerText) +"-"+i);
+            }
+        }
+
+    }
+
+    //遍历元素，把元素类型为空格而且是文本都删除
+    function del_space(elem){
+        var elem_child = elem.childNodes;
+        for(var i=0;i<elem_child.length;i++){
+            if(elem_child.nodeName == "#text" && !/\S/.test(elem_child.nodeValue))
+            {elem.removeChild(elem_child)}
+        }}
+
+    var public_type = '';   //下注的类型
+    function select_type(type) {
+        public_type = type;
+        var s=document.getElementById("choumaTop");
+        del_space(s); //调用清理空格的函数
+        var chils= s.childNodes;  //得到s的全部子节点
+
+        switch(public_type){
+            case "1":
+                chils[0].innerText=parseInt(chils[0].innerText)+1;
+                chils[0].setAttribute('count',chils[0].innerText+"-1");
+                break;
+            case "2":
+                chils[1].innerText=parseInt(chils[1].innerText)+1;
+                chils[1].setAttribute('count',chils[1].innerText+"-2");
+                break;
+            case "3":
+                chils[2].innerText=parseInt(chils[2].innerText)+1;
+                chils[2].setAttribute('count',chils[2].innerText+"-3");
+                break;
+            case "4":
+                chils[3].innerText=parseInt(chils[3].innerText)+1;
+                chils[3].setAttribute('count',chils[3].innerText+"-4");
+                break;
+            case "5":
+                chils[4].innerText=parseInt(chils[4].innerText)+1;
+                chils[4].setAttribute('count',chils[4].innerText+"-5");
+                break;
+            case "6":
+                chils[5].innerText=parseInt(chils[5].innerText)+1;
+                chils[5].setAttribute('count',chils[5].innerText+"-6");
+                break;
+            case "7":
+                chils[6].innerText=parseInt(chils[6].innerText)+1;
+                chils[6].setAttribute('count',chils[6].innerText+"-7");
+                break;
+            case "8":
+                chils[7].innerText=parseInt(chils[7].innerText)+1;
+                chils[7].setAttribute('count',chils[7].innerText+"-8");
+                break;
+        }
+    }
+
+    var successOk = false;
+    function buy_goods(arr){
+        if(successOk){
+            return false;
+        }else{
+			layer.load(0, {shade: [0.1,'#000']});
+            successOk = true;
+            $.ajax({
+                url:"{:U('buyNumber')}",
+                type:'post',
+                dataType:'json',
+                data:{data:arr,pay_type:getPay()},
+                success:function(res) {
+                    if(res.status == 'ok'){
+                        if(res.url){
+                            location.href = res.url;
+                        }else{
+                            layer.msg(res.successMsg,{icon: 1},function(){
+                                layer.closeAll();
+                                // window.location.reload();
+                            });
+                        }
+                        successOk = false;
+                    }else{
+                        if(res.errorMsg == 'nomoney'){
+                            layer.confirm('车币不足，是否前往充值？', {
+                                btn: ['确定','取消'],
+                                skin: 'layui-layer-molv'//按钮
+                            }, function(){
+                                location.href = '/Home/User/rechage';
+                            }, function(){
+                                layer.closeAll();
+                            });
+                        }else{
+                            layer.msg(res.errorMsg,{icon: 2},function(){
+                                layer.closeAll();
+                            });
+                        }
+                        successOk = false;
+                    }
+                }
+            });
+        }
+    }
+
+    function  clsoeBtn() {
+        layer.closeAll();
+    }
+    /*function end*/
+    
+    window.onload=function(){
+        $('#loading').css('display', 'none');
+        $('#wrap').css('display', 'block');
+        $('#lottery').height($(window).height());
+        lottery.init('lottery');
+    };
+    </script>
+
+    </body>
+</html>

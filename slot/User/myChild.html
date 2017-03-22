@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的团队</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <style>
+        .clearfix:after{  content: "";  display: block;  height: 0;  font-size: 0px;  clear: both;  visibility: hidden;  }
+        .clearfix {  zoom: 1;  }
+        .team-box{margin: 0 auto;  background: #fff;  width: 100%; font-family: "微软雅黑";}
+        .team-box li{  -webkit-flex: 1;  flex: 1;  padding-top: 5px;  list-style: none;  }
+        .team-info-box{  margin: 0 auto;  background: #fff;  font-size: 12px;  overflow: hidden;  position: relative;  height: 50px;  }
+        .team-info-box .inline-div{  overflow: hidden;  position: absolute;  top: 5px;  }
+        .team-info-box .inline-div img {  width: 35px;  height: 35px;  border: 1px solid #CCC;  border-radius: 25px;  }
+        .dl-title{
+            padding: 5px 120px;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.75);
+            color: #fff;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body style="background-color: #fff; margin: 0; ">
+<section class="money-record">
+    <div class="team-box">
+        <!--<h3 style="margin-left: 35px; color: rgba(51, 51, 51, 0.58);">我的团队</h3>-->
+            <ul class=" clearfix">
+				<if condition="$list[1]">
+                <li>
+                    <div class="team-info-box">
+                        <div class="inline-div">
+                            <div class="dl-title">金牌团队</div>
+                        </div>
+                    </div>
+                </li>
+				<else />
+                <li>
+                    <div class="team-info-box">
+                        <div class="inline-div">
+                            <div class="dl-title">没有成员</div>
+                        </div>
+                    </div>
+                </li>
+				</if>
+                <foreach name="list[1]" item="v">
+                    <li>
+                        <div class="team-info-box">
+                            <div class="inline-div" style="left: 20px;">
+                                <img src="__PUBLIC__/PublicTuiguang/hear_1.jpg" style="">
+                            </div>
+                            <div class="inline-div" style="left: 65px;text-align: left; width: 100%;">
+<!--                                 <div style="font-size:20px;">{$v.nick_name}</div> -->
+                                <div style="font-size:20px;"><span class="time">金牌成员</span>&nbsp;&nbsp;&nbsp;<span class="userId">用户ID：{$v.user_id}</span></div>
+                            </div>
+                        </div>
+                    </li>
+                </foreach>
+            </ul>
+            <ul class=" clearfix">
+				<if condition="$list[2]">
+                <div class="team-info-box">
+                    <div class="inline-div">
+                        <div class="dl-title">银牌团队</div>
+                    </div>
+                </div>
+				</if>
+                <foreach name="list[2]" item="v">
+                    <li>
+                        <div class="team-info-box">
+                            <div class="inline-div" style="left:20px;">
+                                <img src="__PUBLIC__/PublicTuiguang/hear_2.jpg" style="">
+                            </div>
+                            <div class="inline-div" style="left: 65px;text-align: left; width: 100%;">
+<!--                                 <div style="font-size:20px;">{$v.nick_name}</div> -->
+                                <div style="font-size:20px;"><span class="time">银牌成员</span>&nbsp;&nbsp;&nbsp;<span class="userId">用户ID：{$v.user_id}</span></div>
+                            </div>
+                        </div>
+                    </li>
+                </foreach>
+            </ul>
+            <ul class=" clearfix">
+                <div class="team-info-box">
+				<if condition="$list[3]">
+                    <div class="inline-div">
+                        <div class="dl-title">铜牌团队</div>
+                    </div>
+                </div>
+				</if>
+                <foreach name="list[3]" item="v">
+                    <li>
+                        <div class="team-info-box">
+                            <div class="inline-div" style="left:20px;">
+                                <img src="__PUBLIC__/PublicTuiguang/hear_3.jpg" style="">
+                            </div>
+                            <div class="inline-div" style="left: 65px;text-align: left; width: 100%;">
+<!--                                 <div style="font-size:20px;">{$v.nick_name}</div> -->
+                                <div style="font-size:20px;"><span class="time">铜牌成员</span>&nbsp;&nbsp;&nbsp;<span class="userId">用户ID：{$v.user_id}</span></div>
+                            </div>
+                        </div>
+                    </li>
+                </foreach>
+            </ul>
+
+
+    </div>
+</section>
+
+<!--<section class="money-record">
+    <div class="account-box detail">
+        <h3 style="margin-left: 35px; color: rgba(51, 51, 51, 0.58);">我的团队</h3>
+        <ul class="account-detail-itemlist clearfix">
+            <foreach name="list[1]" item="v">
+                <li>
+                    <div class="left-date">
+                        <span class="bold-text">
+                            {$v.nick_name}
+                        </span><span>ID:{$v.user_id}</span><br />
+                        <span style="font-size: 12px">一级代理</span>
+                    </div>
+                    <div class="right_money_balance">
+
+                    </div>
+                </li>
+            </foreach>
+            <foreach name="list[2]" item="v">
+                <li>
+                    <div class="left-date">
+                        <span class="bold-text">
+                            {$v.nick_name}
+                        </span><span>ID:{$v.user_id}</span><br />
+                        <span style="font-size: 12px">二级代理</span>
+                    </div>
+                    <div class="right_money_balance">
+
+                    </div>
+                </li>
+            </foreach>
+            <foreach name="list[3]" item="v">
+                <li>
+                    <div class="left-date">
+                        <span class="bold-text">
+                            {$v.nick_name}
+                        </span><span>ID:{$v.user_id}</span><br />
+                        <span style="font-size: 12px">三级代理</span>
+                    </div>
+                    <div class="right_money_balance">
+
+                    </div>
+                </li>
+            </foreach>
+        </ul>
+    </div>
+</section>-->
+</body>
+</html>

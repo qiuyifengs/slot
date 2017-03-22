@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+		<meta name="screen-orientation" content="portrait"><!-- uc强制竖屏 -->
+		<meta name="x5-orientation" content="portrait">
+		<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+		<link rel="stylesheet" href="__PUBLIC__/Home/css/FruitGame-style.css">
+    	<link rel="stylesheet" href="__PUBLIC__/Home/css/weui.css">
+		<link rel="stylesheet" href="">
+		<title>我的二维码</title>
+		<style type="text/css">
+			#img{margin:0 auto;display:block;width:100%;}
+		</style>
+	</head>
+	<body id="body">
+		<img id="img" src="{$url1}" />
+		<include file="Public/footer"/>
+	<script src="/Public/PublicJs/jquery-1.7.2.min.js"></script>
+
+	<script type="text/javascript">
+		$(function(){
+			var Heightsc = $(window).height();
+			var FooterHc = $(".footer").height();
+			$("#img").height(Heightsc - FooterHc);
+		  })
+	</script>
+	</body>
+</html>
